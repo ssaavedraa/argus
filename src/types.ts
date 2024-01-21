@@ -6,6 +6,29 @@ export interface ListProps {
   classname?: string
 }
 
+type IconName = 'plus'
+
+export interface IconProps {
+  name: IconName
+  size?: string
+  customClassName?: string
+}
+
+export interface TableProps {
+  columns: string[]
+  data: Record<string, any>[] | undefined
+}
+
+export interface TableHeaderProps {
+  columns: string[]
+}
+
+export interface TableRowProps {
+  rowData: Record<string, any>
+  columns: string[]
+  isLastRow: boolean
+}
+
 // API SERVICE
 export enum HttpMethod {
   GET = 'GET',

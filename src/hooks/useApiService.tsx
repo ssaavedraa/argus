@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ApiRequestOptions, ApiResponse } from '../types'
 
-export function useApiService<T>(url: string, { body, method }: ApiRequestOptions): ApiResponse<T> {
+export function useApiService<T>(
+  url: string,
+  { body, method }: ApiRequestOptions,
+): ApiResponse<T> {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [isLoading, setIsLoading] = useState(true)

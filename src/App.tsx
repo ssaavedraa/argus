@@ -1,6 +1,8 @@
-import List from './components/List'
-import ListItem from './components/ListItem'
+import Icon from './components/icons/Icon'
+import Table from './components/Table/Table'
+import TableRow from './components/Table/TableRow'
 import { useApiService } from './hooks/useApiService'
+import AdminPanel from './layouts/AdminPanel'
 import { HttpMethod } from './types'
 
 function App() {
@@ -8,27 +10,29 @@ function App() {
     method: HttpMethod.GET,
   })
 
+  const columns = ['name', 'price', 'stock', 'actions']
+
+  const mockData = data?.map(({ name, price, stock, productId }) => ({
+    name,
+    price,
+    stock,
+    productId,
+  }))
+
   return (
     <>
-      <main className="w-screen h-screen flex flex-col justify-center items-center">
-        <div className="w-5/6 h-5/6 flex gap-x-4">
-          <div className="bg-[#343346] bg-opacity-50 w-2/12 h-full rounded-lg"></div>
-          <div className="w-10/12 bg-[#343346] bg-opacity-50 rounded-lg p-4 overflow-clip">
-            <h1 className="text-3xl font-semibold pb-2">Products</h1>
-            <ul className="flex flex-row justify-between m-4">
-              <li className="w-5/12 text-center">Product name</li>
-              <li className="w-2/12 text-center">Price</li>
-              <li className="w-2/12 text-center">Stock</li>
-              <li className="w-3/12 text-center">Actions</li>
-            </ul>
-            <List>
-              {data?.map(({ name, price, stock, productId }) => (
-                <ListItem name={name} price={price} stock={stock} key={productId}/>
-                ))}
-            </List>
-          </div>
+      <AdminPanel>
+        <header className='w-full flex justify-between'>
+          <h1 className='text-3xl font-semibold pb-2'>Products</h1>
+          <button>
+            <Icon name='plus' size='medium' />
+          </button>
+        </header>
+
+        <div className='overflow-clip rounded-md relative'>
+          <Table columns={columns} data={mockData} />
         </div>
-      </main>
+      </AdminPanel>
     </>
   )
 }

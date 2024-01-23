@@ -5,6 +5,7 @@ import Input from '../components/Form/Input'
 import Toggler from '../components/Form/Toggler'
 import Modal from '../components/Modal/Modal'
 import { useApiService } from '../hooks/useApiService'
+import useModal from '../hooks/useModal'
 import {
   AlertType,
   CreateProductFormData,
@@ -38,6 +39,8 @@ const CreateProductForm: React.FC = () => {
   }>({
     method: HttpMethod.POST,
   })
+
+  const { closeModal } = useModal()
 
   const validationSchema = {
     name: object({ name: string().trim().required() }),
@@ -160,6 +163,11 @@ const CreateProductForm: React.FC = () => {
 
     if (isSuccess) {
       setShowAlert(true)
+      setFormData(formDataInitialState)
+
+      setTimeout(() => {
+        closeModal()
+      }, 2500)
     }
 
     if (isLoading) {

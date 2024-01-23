@@ -1,13 +1,16 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { boolean, number, object, string } from 'yup'
+import Alert from '../components/Alert/Alert'
 import Input from '../components/Form/Input'
 import Toggler from '../components/Form/Toggler'
 import Modal from '../components/Modal/Modal'
 import { useApiService } from '../hooks/useApiService'
 import {
+  AlertType,
   CreateProductFormData,
   CreateProductFormErrors,
   HttpMethod,
+  IconName,
 } from '../types'
 import matchObjectWithModel from '../utils/validation/matchObjectWithModel'
 
@@ -28,7 +31,11 @@ const CreateProductForm: React.FC = () => {
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] =
     useState<boolean>(true)
 
-  const { fetchData, error, isSuccess, data, isLoading } = useApiService({
+  const [showAlert, setShowAlert] = useState(false)
+
+  const { fetchData, error, isSuccess, data, isLoading } = useApiService<{
+    message: string
+  }>({
     method: HttpMethod.POST,
   })
 
@@ -94,14 +101,30 @@ const CreateProductForm: React.FC = () => {
     const requestBody = matchObjectWithModel(formData)
 
     await fetchData('products', requestBody)
+  }
 
+  const getAlertIcon = (): IconName => {
     if (error) {
-      console.debug({ error })
+      return 'error'
     }
 
     if (isSuccess) {
-      console.debug({ data })
+      return 'success'
     }
+
+    return 'info'
+  }
+
+  const getAlertType = (): AlertType => {
+    if (error) {
+      return 'error'
+    }
+
+    if (isSuccess) {
+      return 'success'
+    }
+
+    return 'info'
   }
 
   useEffect(() => {
@@ -131,14 +154,18 @@ const CreateProductForm: React.FC = () => {
   }, [formErrors, formData])
 
   useEffect(() => {
-    if (error) {
-      console.error(error)
+    if (!!error) {
+      setShowAlert(true)
     }
 
     if (isSuccess) {
-      console.debug('success! :D')
+      setShowAlert(true)
     }
-  }, [error, isSuccess])
+
+    if (isLoading) {
+      setShowAlert(true)
+    }
+  }, [error, isSuccess, isLoading])
 
   return (
     <Modal
@@ -159,14 +186,16 @@ const CreateProductForm: React.FC = () => {
         </button>
       }
     >
-      <small>
-        {JSON.stringify({
-          data,
-          isLoading,
-          error,
-          isSuccess,
-        })}
-      </small>
+      {showAlert && (
+        <Alert
+          type={getAlertType()}
+          message={
+            error || data?.message || 'Please wait while we create your product'
+          }
+          iconName={getAlertIcon()}
+        />
+      )}
+
       <form onSubmit={handleSubmit}>
         <Input
           name='name'

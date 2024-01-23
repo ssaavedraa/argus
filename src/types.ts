@@ -1,8 +1,9 @@
 import { ChangeEvent, ReactNode } from 'react'
 
-type IconName = 'plus' | 'close'
+export type IconName = 'plus' | 'close' | 'error' | 'info' | 'success'
 type InputType = 'text' | 'number'
 export type Size = 'small' | 'medium' | 'large'
+export type AlertType = 'success' | 'error' | 'info'
 
 // COMPONENTS
 export interface ListProps {
@@ -36,6 +37,12 @@ export interface ModalProps {
   children: ReactNode
   actions?: ReactNode
   size?: Size
+}
+
+export interface AlertProps {
+  type: AlertType
+  message?: string
+  iconName?: IconName
 }
 
 export interface InputProps {

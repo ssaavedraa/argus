@@ -15,7 +15,6 @@ export function useApiService<T>({
     body?: Record<string, any> | string | FormData | null,
   ) => {
     try {
-      console.debug('sending request')
       setIsLoading(true)
       setError(null)
 
@@ -32,15 +31,14 @@ export function useApiService<T>({
       const responseData = await response.json()
 
       if (!/^2\d{2}$/.test(`${response.status}`)) {
-        console.debug('throw error')
         throw new Error(responseData.message)
       }
 
       setData(responseData)
       setIsSuccess(true)
     } catch (error) {
-      setIsSuccess(false)
       setError((error as Error).message)
+      setIsSuccess(false)
     } finally {
       setIsLoading(false)
       setIsSuccess(!error)

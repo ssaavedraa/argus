@@ -1,6 +1,9 @@
 import { IconProps } from '../../types'
 import CloseIcon from './CloseIcon'
+import ErrorIcon from './ErrorIcon'
+import InfoIcon from './InfoIcon'
 import PlusIcon from './PlusIcon'
+import SuccessIcon from './SuccessIcon'
 
 const Icon: React.FC<IconProps> = ({ name, size, customClassName = '' }) => {
   const getSize = () => {
@@ -18,10 +21,15 @@ const Icon: React.FC<IconProps> = ({ name, size, customClassName = '' }) => {
   const iconMap = {
     plus: <PlusIcon />,
     close: <CloseIcon />,
+    error: <ErrorIcon />,
+    info: <InfoIcon />,
+    success: <SuccessIcon />,
   }
 
   return (
-    <div className={`inline-block text-white ${getSize()} ${customClassName}`}>
+    <div
+      className={`inline-block text-inherit ${getSize()} ${customClassName}`}
+    >
       {iconMap[name]}
     </div>
   )

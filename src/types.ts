@@ -19,7 +19,7 @@ export interface IconProps {
 
 export interface TableProps {
   columns: string[]
-  data: Record<string, any>[] | undefined
+  tableData: TableData[]
 }
 
 export interface TableHeaderProps {
@@ -30,6 +30,7 @@ export interface TableRowProps {
   rowData: Record<string, any>
   columns: string[]
   isLastRow: boolean
+  fullData: Record<string, any>
 }
 
 export interface ModalProps {
@@ -91,6 +92,16 @@ export interface ApiResponse<T> {
     endpoint: string,
     body?: Record<string, any> | string | FormData | null,
   ) => Promise<void>
+}
+
+export interface ProductTableData {
+  columns: string[]
+  tableData: TableData[]
+}
+
+export interface TableData {
+  cellsData: Pick<Product, 'name' | 'price' | 'stock'>
+  fullData: Record<string, any>
 }
 
 //CONTEXT

@@ -5,25 +5,18 @@ import CreateProductForm from './forms/CreateProduct'
 import { useApiService } from './hooks/useApiService'
 import useModal from './hooks/useModal'
 import AdminPanel from './layouts/AdminPanel'
-import { HttpMethod } from './types'
+import { HttpMethod, ProductTableData } from './types'
 
 function App() {
   const { isModalOpen, openModal } = useModal()
-  const { data, fetchData } = useApiService<any[]>({
+  const { data, fetchData } = useApiService<ProductTableData>({
     method: HttpMethod.GET,
   })
 
-  const columns = ['name', 'price', 'stock', 'actions']
-
-  const mockData = data?.map(({ name, price, stock, productId }) => ({
-    name,
-    price,
-    stock,
-    productId,
-  }))
+  const { columns, tableData } = data || ({} as ProductTableData)
 
   useEffect(() => {
-    fetchData('products')
+    fetchData('layout/products-table')
   }, [isModalOpen])
 
   return (
@@ -37,7 +30,7 @@ function App() {
         </header>
 
         <div className='overflow-clip rounded-md relative'>
-          <Table columns={columns} data={mockData} />
+          <Table columns={columns} tableData={tableData} />
         </div>
       </AdminPanel>
       {isModalOpen && <CreateProductForm />}

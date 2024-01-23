@@ -1,12 +1,15 @@
-import Icon from './components/icons/Icon'
+import { useEffect } from 'react'
 import Table from './components/Table/Table'
-import TableRow from './components/Table/TableRow'
+import Icon from './components/icons/Icon'
+import CreateProductForm from './forms/CreateProduct'
 import { useApiService } from './hooks/useApiService'
+import useModal from './hooks/useModal'
 import AdminPanel from './layouts/AdminPanel'
 import { HttpMethod } from './types'
 
 function App() {
-  const { data } = useApiService<any[]>('http://localhost:3000/products', {
+  const { isModalOpen, openModal } = useModal()
+  const { data, fetchData } = useApiService<any[]>({
     method: HttpMethod.GET,
   })
 
@@ -19,12 +22,16 @@ function App() {
     productId,
   }))
 
+  useEffect(() => {
+    fetchData('products')
+  }, [isModalOpen])
+
   return (
     <>
       <AdminPanel>
         <header className='w-full flex justify-between'>
           <h1 className='text-3xl font-semibold pb-2'>Products</h1>
-          <button>
+          <button onClick={openModal}>
             <Icon name='plus' size='medium' />
           </button>
         </header>
@@ -33,6 +40,7 @@ function App() {
           <Table columns={columns} data={mockData} />
         </div>
       </AdminPanel>
+      {isModalOpen && <CreateProductForm />}
     </>
   )
 }

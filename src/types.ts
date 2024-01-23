@@ -1,4 +1,8 @@
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
+
+type IconName = 'plus' | 'close'
+type InputType = 'text' | 'number'
+export type Size = 'small' | 'medium' | 'large'
 
 // COMPONENTS
 export interface ListProps {
@@ -6,11 +10,9 @@ export interface ListProps {
   classname?: string
 }
 
-type IconName = 'plus'
-
 export interface IconProps {
   name: IconName
-  size?: string
+  size?: Size
   customClassName?: string
 }
 
@@ -29,6 +31,38 @@ export interface TableRowProps {
   isLastRow: boolean
 }
 
+export interface ModalProps {
+  title?: ReactNode | string
+  children: ReactNode
+  actions?: ReactNode
+  size?: Size
+}
+
+export interface InputProps {
+  name: string
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  value: string | number | readonly string[] | boolean
+  error?: string
+  type?: InputType
+}
+
+export interface TogglerProps extends Omit<InputProps, 'type'> {
+  caption?: string
+}
+
+export interface FormField {
+  name: string
+  type: InputType
+}
+
+// MODELS
+export interface Product {
+  name: string
+  price: number
+  stock: number | undefined
+  needStock: boolean
+}
+
 // API SERVICE
 export enum HttpMethod {
   GET = 'GET',
@@ -39,11 +73,55 @@ export enum HttpMethod {
 
 export interface ApiRequestOptions {
   method: HttpMethod
-  body?: Record<string, any> | string | FormData | null
 }
 
 export interface ApiResponse<T> {
   data: T | null
   isLoading: boolean
-  error: Error | null
+  isSuccess: boolean
+  error: string | null
+  fetchData: (
+    endpoint: string,
+    body?: Record<string, any> | string | FormData | null,
+  ) => Promise<void>
 }
+
+//CONTEXT
+export interface ModalContextProps {
+  isModalOpen: boolean
+  openModal: () => void
+  closeModal: () => void
+}
+
+//HOOKS
+export interface FormHook<FormData, FormErrors> {
+  formData: FormData
+  formErrors: FormErrors
+  isSubmitButtonDisabled: boolean
+  handleFormDataChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void
+}
+
+export interface UseFormParams<FormData> {
+  formDataInitialState: FormData
+  validationSchema: (formData: any) => Record<string, any>
+  postEndpoint: string
+}
+
+export type ValidationSchema = Record<string, (value: any) => string | void>
+
+// UTILS
+export type StringifyInterface<T> = {
+  [Key in keyof T]: string
+}
+
+// FORMS
+export interface CreateProductFormData {
+  name: string
+  price: number
+  needStock: boolean
+  stock: number
+}
+
+export type CreateProductFormErrors = StringifyInterface<CreateProductFormData>

@@ -1,4 +1,5 @@
 import { IconProps } from '../../types'
+import CloseIcon from './CloseIcon'
 import PlusIcon from './PlusIcon'
 
 const Icon: React.FC<IconProps> = ({ name, size, customClassName = '' }) => {
@@ -16,6 +17,7 @@ const Icon: React.FC<IconProps> = ({ name, size, customClassName = '' }) => {
   }
   const iconMap = {
     plus: <PlusIcon />,
+    close: <CloseIcon />,
   }
 
   return (

@@ -54,5 +54,6 @@
   "Cannot find a fulltext index to use for the search.": "Cannot find a fulltext index to use for the search.",
   "Prisma requires MongoDB server to be run as a replica set for transactions.": "Prisma requires MongoDB server to be run as a replica set for transactions.",
   "A number used in the query exceeds supported limits.": "A number used in the query exceeds supported limits.",
-  "Transaction failed due to a write conflict or a deadlock. Please retry.": "Transaction failed due to a write conflict or a deadlock. Please retry."
+  "Transaction failed due to a write conflict or a deadlock. Please retry.": "Transaction failed due to a write conflict or a deadlock. Please retry.",
+  "No data available to be shown": "No data available to be shown"
 }

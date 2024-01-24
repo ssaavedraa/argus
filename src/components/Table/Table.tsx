@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { TableProps } from '../../types'
 import TableHeader from './TableHeader'
 import TableRow from './TableRow'
 
 const Table: React.FC<TableProps> = ({ columns, tableData }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <table className='w-full mt-4'>
@@ -25,7 +28,7 @@ const Table: React.FC<TableProps> = ({ columns, tableData }) => {
       </table>
       {!tableData?.length && (
         <span className='w-full block py-4 text-center text-xl opacity-80'>
-          No data available to be shown
+          {t('No data available to be shown')}
         </span>
       )}
     </>

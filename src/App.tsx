@@ -16,7 +16,7 @@ function App() {
 
   const { columns, tableData } = data || ({} as ProductTableData)
 
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   useEffect(() => {
     fetchData('layout/products-table')
@@ -24,6 +24,7 @@ function App() {
 
   return (
     <>
+      <h1>{i18n.language}</h1>
       <AdminPanel>
         <header className='w-full flex justify-between'>
           <h1 className='text-3xl font-semibold pb-2'>{t('products')}</h1>

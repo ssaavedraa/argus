@@ -54,5 +54,6 @@
   "Cannot find a fulltext index to use for the search.": "No se puede encontrar un índice de texto completo para usar en la búsqueda.",
   "Prisma requires MongoDB server to be run as a replica set for transactions.": "Prisma requiere que el servidor MongoDB se ejecute como un conjunto de réplicas para las transacciones.",
   "A number used in the query exceeds supported limits.": "Un número utilizado en la consulta excede los límites admitidos.",
-  "Transaction failed due to a write conflict or a deadlock. Please retry.": "La transacción falló debido a un conflicto de escritura o un bloqueo. Por favor, reintente."
+  "Transaction failed due to a write conflict or a deadlock. Please retry.": "La transacción falló debido a un conflicto de escritura o un bloqueo. Por favor, reintente.",
+  "No data available to be shown": "No Hay datos disponibles para mostrar"
 }

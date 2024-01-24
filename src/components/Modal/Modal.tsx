@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { useTranslation } from 'react-i18next'
 import useModal from '../../hooks/useModal'
 import { ModalProps, Size } from '../../types'
 import Icon from '../icons/Icon'
@@ -18,6 +19,8 @@ const Modal: React.FC<ModalProps> = ({
     large: 'w-5/6',
   }
   const getSize = () => modalSize[size]
+
+  const { t } = useTranslation()
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -43,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({
           >
             <header className='max-w-[90%] w-full'>
               <h1 className='inline-block h-8 text-2xl font-semibold'>
-                {title}
+                {t(title)}
               </h1>
               <button className='absolute top-4 right-4' onClick={closeModal}>
                 <Icon size='medium' name='close' />

@@ -34,7 +34,7 @@ export interface TableRowProps {
 }
 
 export interface ModalProps {
-  title?: ReactNode | string
+  title: string
   children: ReactNode
   actions?: ReactNode
   size?: Size

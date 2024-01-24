@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { InputProps } from '../../types'
 
 const Input: React.FC<InputProps> = ({
@@ -7,10 +8,12 @@ const Input: React.FC<InputProps> = ({
   error,
   type,
 }) => {
+  const { t } = useTranslation()
+
   return (
     <div className='flex flex-col my-4'>
-      <label htmlFor={name} className='my-2 text-lg capitalize'>
-        {name.replace(/-/g, ' ')}
+      <label htmlFor={name} className='my-2 text-lg'>
+        {t(name.replace(/-/g, ' '))}
       </label>
       <input
         type={type}

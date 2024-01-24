@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { boolean, number, object, string } from 'yup'
 import Alert from '../components/Alert/Alert'
 import Input from '../components/Form/Input'
@@ -42,11 +43,13 @@ const CreateProductForm: React.FC = () => {
 
   const { closeModal } = useModal()
 
+  const { t } = useTranslation()
+
   const validationSchema = {
     name: object({ name: string().trim().required() }),
     price: object({
       price: number()
-        .positive('Product price must be a positive number')
+        .positive(t('productPricePositive'))
         .required('Product price is required'),
     }),
     stock: object({
@@ -63,7 +66,7 @@ const CreateProductForm: React.FC = () => {
     if (value === '') {
       setFormErrors((prevState) => ({
         ...prevState,
-        [property]: `${property} is a required field`,
+        [property]: t('fieldIsRequired', { field: t(property) }),
       }))
 
       return
@@ -157,7 +160,7 @@ const CreateProductForm: React.FC = () => {
   }, [formErrors, formData])
 
   useEffect(() => {
-    if (!!error) {
+    if (error) {
       setShowAlert(true)
     }
 
@@ -177,7 +180,7 @@ const CreateProductForm: React.FC = () => {
 
   return (
     <Modal
-      title='Add new product'
+      title='add new product'
       actions={
         <button
           className={`shadow-neumorphic-sm block rounded-full
@@ -190,16 +193,18 @@ const CreateProductForm: React.FC = () => {
           disabled={isSubmitButtonDisabled || isLoading}
           onClick={handleSubmit}
         >
-          Submit
+          {t('createProduct')}
         </button>
       }
     >
       {showAlert && (
         <Alert
           type={getAlertType()}
-          message={
-            error || data?.message || 'Please wait while we create your product'
-          }
+          message={t(
+            error ||
+              data?.message ||
+              'please wait while we create your product',
+          )}
           iconName={getAlertIcon()}
         />
       )}

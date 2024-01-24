@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import Table from './components/Table/Table'
 import Icon from './components/icons/Icon'
 import CreateProductForm from './forms/CreateProduct'
@@ -15,6 +16,8 @@ function App() {
 
   const { columns, tableData } = data || ({} as ProductTableData)
 
+  const { t } = useTranslation()
+
   useEffect(() => {
     fetchData('layout/products-table')
   }, [isModalOpen])
@@ -23,7 +26,7 @@ function App() {
     <>
       <AdminPanel>
         <header className='w-full flex justify-between'>
-          <h1 className='text-3xl font-semibold pb-2'>Products</h1>
+          <h1 className='text-3xl font-semibold pb-2'>{t('products')}</h1>
           <button onClick={openModal}>
             <Icon name='plus' size='medium' />
           </button>

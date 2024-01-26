@@ -1,36 +1,12 @@
 import { ChangeEvent, ReactNode } from 'react'
 
-export type IconName = 'plus' | 'close' | 'error' | 'info' | 'success'
 type InputType = 'text' | 'number'
-export type Size = 'small' | 'medium' | 'large'
 export type AlertType = 'success' | 'error' | 'info'
 
 // COMPONENTS
 export interface ListProps {
   children: ReactNode
   classname?: string
-}
-
-export interface IconProps {
-  name: IconName
-  size?: Size
-  customClassName?: string
-}
-
-export interface TableProps {
-  columns: string[]
-  tableData: TableData[]
-}
-
-export interface TableHeaderProps {
-  columns: string[]
-}
-
-export interface TableRowProps {
-  rowData: Record<string, any>
-  columns: string[]
-  isLastRow: boolean
-  fullData: Record<string, any>
 }
 
 export interface ModalProps {
@@ -64,13 +40,6 @@ export interface FormField {
 }
 
 // MODELS
-export interface Product {
-  name: string
-  price: number
-  stock: number | undefined
-  needStock: boolean
-}
-
 // API SERVICE
 export enum HttpMethod {
   GET = 'GET',

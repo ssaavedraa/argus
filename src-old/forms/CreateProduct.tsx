@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { boolean, number, object, string } from 'yup'
+import Modal from '../../hex-store-migration/src/ui/Modal/Modal'
 import Alert from '../components/Alert/Alert'
 import Input from '../components/Form/Input'
 import Toggler from '../components/Form/Toggler'
-import Modal from '../components/Modal/Modal'
 import { useApiService } from '../hooks/useApiService'
 import useModal from '../hooks/useModal'
 import {

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import Table from './components/Table/Table'
+import Table from '../hex-store-migration/src/ui/Table/Table'
 import Icon from './components/icons/Icon'
 import CreateProductForm from './forms/CreateProduct'
 import { useApiService } from './hooks/useApiService'

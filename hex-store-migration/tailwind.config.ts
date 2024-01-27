@@ -16,10 +16,14 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       boxShadow: {
-        neumorphic: '28px 28px 57px #0C001A, -28px -28px 57px #2A0057',
+        neumorphic:
+          '28px 28px 57px rgba(2, 1, 9, 0.4), -28px -28px 57px rgba(30, 14, 88, 0.6)',
         'neumorphic-sm': '4px 4px 9px #0C001A, -4px -4px 9px #2A0057',
         'neumorphic-inset':
           'inset 3px 3px 6px #1e1d29, inset -3px -3px 16px #282737',
+      },
+      textColor: {
+        primary: '#7720D1',
       },
     },
   },
@@ -29,7 +33,15 @@ const config: Config = {
       themes: {
         dark: {
           colors: {
-            background: '#1B0038',
+            background: '#0D0830',
+            primary: '#7720D1',
+            divider: '#8C53E4',
+          },
+          layout: {
+            boxShadow: {
+              large:
+                '28px 28px 57px rgba(2, 1, 9, 0.4), -28px -28px 57px rgba(30, 14, 88, 0.6)',
+            },
           },
         },
       },

@@ -26,8 +26,13 @@ export default async function Home() {
               }}
             >
               <Image
+                width={200}
+                height={200}
                 removeWrapper
+                alt={title}
+                loading='lazy'
                 className='object-cover'
+                fallbackSrc='https://via.placeholder.com/300x200'
                 src={
                   images[0] ||
                   'https://nextui-docs-v2.vercel.app/images/album-cover.png'

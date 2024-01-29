@@ -1,27 +1,34 @@
 'use client'
 
-import { Avatar, Link, Listbox, ListboxItem } from '@nextui-org/react'
+import { Avatar, Divider, Link } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 import HexIsoLogo from '../Hex/HexIsoLogo'
 
 export default function SideBar() {
   const sideBarItems = [
     {
       name: 'Dashboard',
-      path: '/admin/dashboard',
+      view: 'dashboard',
     },
     {
       name: 'Products',
-      path: '/admin/products',
+      view: 'products',
     },
     {
       name: 'Team',
-      path: '/admin/team',
+      view: 'team',
     },
     {
       name: 'Account',
-      path: '/admin/account',
+      view: 'account',
     },
   ]
+
+  const router = useRouter()
+
+  const navigate = (query: string) => {
+    router.push(`/admin?view=${query}`)
+  }
 
   return (
     <>
@@ -41,78 +48,23 @@ export default function SideBar() {
             Store manager
           </span>
         </div>
-        <div className='mt-4'>
-          <Listbox variant='solid'>
-            <ListboxItem
-              key='dashboard'
-              color='primary'
-              variant='flat'
-              classNames={{
-                title: 'text-xl',
-              }}
-              showDivider
-            >
-              <Link
-                href='/admin/dashboard'
-                className='text-white text-xl'
-                rel='noreferrer'
-              >
-                Dashboard
-              </Link>
-            </ListboxItem>
-            <ListboxItem
-              key='dashboard'
-              color='primary'
-              variant='flat'
-              classNames={{
-                title: 'text-xl',
-              }}
-              showDivider
-            >
-              <Link
-                href='/admin/dashboard'
-                className='text-white text-xl'
-                rel='noreferrer'
-              >
-                Products
-              </Link>
-            </ListboxItem>
-            <ListboxItem
-              key='dashboard'
-              color='primary'
-              variant='flat'
-              classNames={{
-                title: 'text-xl',
-              }}
-              showDivider
-            >
-              <Link
-                href='/admin/dashboard'
-                className='text-white text-xl'
-                rel='noreferrer'
-              >
-                Team
-              </Link>
-            </ListboxItem>
-            <ListboxItem
-              key='dashboard'
-              color='primary'
-              variant='flat'
-              classNames={{
-                title: 'text-md',
-              }}
-              showDivider
-            >
-              <Link
-                href='/admin/dashboard'
-                className='text-white text-md'
-                rel='noreferrer'
-              >
-                Manage account
-              </Link>
-            </ListboxItem>
-          </Listbox>
-        </div>
+        <nav className='mt-4'>
+          <ul>
+            {sideBarItems.map(({ name, view }, index) => (
+              <>
+                <Divider className='bg-[#7720D1]' />
+                <li className='w-full p-2'>
+                  <Link color='foreground' onClick={() => navigate(view)}>
+                    {name}
+                  </Link>
+                </li>
+                {index === sideBarItems.length - 1 ? (
+                  <Divider className='bg-[#7720D1]' />
+                ) : null}
+              </>
+            ))}
+          </ul>
+        </nav>
       </div>
       <div className=' h-auto w-3/6 mx-auto text-[#7720D1] opacity-60'>
         <small className='tracking-wide text-md font-light'>Powered by</small>

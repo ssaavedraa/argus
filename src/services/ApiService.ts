@@ -1,16 +1,17 @@
-const { BACKEND_URL } = process.env
-
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 export default class ApiService {
   public async getData<T>(endpoint: string): Promise<T> {
     try {
-      const response = await fetch('https://api.escuelajs.co/api/v1/products')
+      const response = await fetch(`${apiUrl}/${endpoint}`)
 
       const data: T = await response.json()
+      console.debug('🚀 ~ ApiService ~ data:', data)
 
       return data
     } catch (error) {
       console.error({ error })
-      return {} as T
+
+      throw error
     }
   }
 }

@@ -2,7 +2,6 @@ export default function HexIsoLogo() {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      data-name='Layer 1'
       viewBox='0 0 292.46 98.13'
       fill='currentColor'
     >

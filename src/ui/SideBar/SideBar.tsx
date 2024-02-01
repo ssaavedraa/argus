@@ -1,34 +1,32 @@
 'use client'
 
 import { Avatar, Divider, Link } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
-import HexIsoLogo from '../Hex/HexIsoLogo'
+import React from 'react'
+import HexIsoLogo from '../icons/HexIsoLogo'
 
-export default function SideBar() {
+export default function Sidebar() {
   const sideBarItems = [
     {
       name: 'Dashboard',
-      view: 'dashboard',
+      path: 'dashboard',
     },
     {
       name: 'Products',
-      view: 'products',
+      path: 'products',
+    },
+    {
+      name: 'Services',
+      path: 'services',
     },
     {
       name: 'Team',
-      view: 'team',
+      path: 'team',
     },
     {
       name: 'Account',
-      view: 'account',
+      path: 'account',
     },
   ]
-
-  const router = useRouter()
-
-  const navigate = (query: string) => {
-    router.push(`/admin?view=${query}`)
-  }
 
   return (
     <>
@@ -50,18 +48,18 @@ export default function SideBar() {
         </div>
         <nav className='mt-4'>
           <ul>
-            {sideBarItems.map(({ name, view }, index) => (
-              <>
-                <Divider className='bg-[#7720D1]' />
-                <li className='w-full p-2'>
-                  <Link color='foreground' onClick={() => navigate(view)}>
+            {sideBarItems.map(({ name, path }, index) => (
+              <React.Fragment key={name}>
+                <Divider className='bg-[#7720D1] bg-opacity-60' />
+                <li className='w-full px-2 py-4'>
+                  <Link color='foreground' href={path}>
                     {name}
                   </Link>
                 </li>
                 {index === sideBarItems.length - 1 ? (
                   <Divider className='bg-[#7720D1]' />
                 ) : null}
-              </>
+              </React.Fragment>
             ))}
           </ul>
         </nav>

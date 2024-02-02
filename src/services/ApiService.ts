@@ -5,7 +5,6 @@ export default class ApiService {
       const response = await fetch(`${apiUrl}/${endpoint}`)
 
       const data: T = await response.json()
-      console.debug('🚀 ~ ApiService ~ data:', data)
 
       return data
     } catch (error) {

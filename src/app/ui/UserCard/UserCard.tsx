@@ -7,6 +7,7 @@ async function getProductsData(authHeader?: string) {
   const response = await fetch(`${apiUrl}/users/me`, {
     headers: {
       Authorization: `Bearer ${authHeader}`,
+      Cookie: `session_id=${authHeader}`,
     },
     credentials: 'include',
   })

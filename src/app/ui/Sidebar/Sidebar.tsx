@@ -1,5 +1,3 @@
-'use client'
-
 import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
 import UserCard from '../UserCard/UserCard'
@@ -32,7 +30,7 @@ export default function Sidebar() {
   return (
     <>
       <div>
-        <Suspense>
+        <Suspense fallback>
           <UserCard />
         </Suspense>
         <nav className='mt-4'>

@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, Input, Link } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 
 export default function LoginPage() {
@@ -8,6 +9,8 @@ export default function LoginPage() {
     email: '',
     password: '',
   })
+
+  const router = useRouter()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -19,19 +22,24 @@ export default function LoginPage() {
   }
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      })
+    const response = await fetch('http://localhost:3001/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+      credentials: 'include',
+    })
 
-      const test = await response.json()
-    } catch (error) {
-      console.error
+    const responseData = await response.json()
+
+    if (responseData.code === 400 || responseData.code === 400) {
+      console.error(responseData.message)
+      return
+    }
+
+    if (responseData.code === 201) {
+      router.push('/admin/products')
     }
   }
 
@@ -80,10 +88,10 @@ export default function LoginPage() {
           </Link>
         </small>
         <Button
-          variant='solid'
           color='primary'
           className='mt-4'
           onClick={handleSubmit}
+          disabled={!formData.email && !formData.password}
         >
           Log In
         </Button>

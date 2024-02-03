@@ -5,9 +5,8 @@ export async function getData<T>(endpoint: string): Promise<T> {
   try {
     const response = await fetch(`${apiUrl}/${endpoint}`)
 
-    const data: T = await response.json()
-
-    return data
+    console.debug('🚀 ~ response:', response)
+    return response.json()
   } catch (error) {
     console.error({ error })
 

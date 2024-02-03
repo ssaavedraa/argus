@@ -1,6 +1,28 @@
 import { Button, ButtonGroup, Card, CardFooter, Image } from '@nextui-org/react'
+import { cookies } from 'next/headers'
 
-export default function ProductGrid({ productList }: { productList: any[] }) {
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+
+async function getProductsData(authHeader?: string) {
+  const response = await fetch(`${apiUrl}/products`, {
+    headers: {
+      Authorization: `Bearer ${authHeader}`,
+    },
+  })
+
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.message)
+  }
+
+  return response.json()
+}
+
+export default async function ProductGrid() {
+  const cookieStore = cookies()
+  const session_id = cookieStore.get('session_id')?.value
+
+  const productList: any[] = await getProductsData(session_id)
   return (
     <section className='grid grid-cols-5 gap-8'>
       {productList?.map(({ name, price, imageUrl }) => (

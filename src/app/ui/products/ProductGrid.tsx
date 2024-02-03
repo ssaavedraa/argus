@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 async function getProductsData(authHeader?: string) {
+  'use server'
   const response = await fetch(`${apiUrl}/products`, {
     headers: {
       Authorization: `Bearer ${authHeader}`,

@@ -1,8 +1,8 @@
 import Topbar from '@/app/ui/Topbar/Topbar'
-import { ReactNode } from 'react'
-import Sidebar from '../ui/Sidebar/Sidebar'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { ReactNode } from 'react'
+import Sidebar from '../ui/Sidebar/Sidebar'
 
 const AdminPanelLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const cookieStore = cookies()
@@ -13,7 +13,7 @@ const AdminPanelLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   }
 
   return (
-    <main className='w-screen h-screen flex flex-row flex-nowrap justify-center items-center'>
+    <main className='w-screen h-screen flex flex-row flex-nowrap items-center'>
       <aside className=' min-w-max h-full rounded-lg flex flex-col justify-between align-middle p-4'>
         <Sidebar />
       </aside>

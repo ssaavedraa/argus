@@ -24,6 +24,7 @@ export default async function ProductGrid() {
   const session_id = cookieStore.get('session_id')?.value
 
   const productList: any[] = await getProductsData(session_id)
+
   return (
     <section className='grid grid-cols-5 gap-8'>
       {productList?.map(({ name, price, imageUrl }) => (

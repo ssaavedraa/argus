@@ -8,6 +8,7 @@ async function getProductsData(authHeader?: string) {
     headers: {
       Authorization: `Bearer ${authHeader}`,
     },
+    credentials: 'include',
   })
 
   if (!response.ok) {

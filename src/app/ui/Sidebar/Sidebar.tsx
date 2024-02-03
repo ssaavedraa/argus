@@ -1,7 +1,8 @@
 'use client'
 
-import { Link, User } from '@nextui-org/react'
+import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
+import UserCard from '../UserCard/UserCard'
 import HexIsoLogo from '../icons/HexIsoLogo'
 
 export default function Sidebar() {
@@ -32,13 +33,7 @@ export default function Sidebar() {
     <>
       <div>
         <Suspense>
-          <User
-            name='Santiago Saavedra'
-            description='CTO'
-            avatarProps={{
-              showFallback: true,
-            }}
-          />
+          <UserCard />
         </Suspense>
         <nav className='mt-4'>
           <ul className='flex flex-col gap-2 px-4'>

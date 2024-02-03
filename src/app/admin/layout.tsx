@@ -1,6 +1,6 @@
-import Sidebar from '@/ui/Sidebar/Sidebar'
-import Topbar from '@/ui/Topbar/Topbar'
+import Topbar from '@/app/ui/Topbar/Topbar'
 import { ReactNode } from 'react'
+import Sidebar from '../ui/Sidebar/Sidebar'
 
 const AdminPanelLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (

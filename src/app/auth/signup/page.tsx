@@ -1,6 +1,6 @@
 'use client'
 
-import Icon from '@/ui/icons/Icon'
+import Icon from '@/app/ui/icons/Icon'
 import { Button, Input, Link } from '@nextui-org/react'
 import { useState } from 'react'
 

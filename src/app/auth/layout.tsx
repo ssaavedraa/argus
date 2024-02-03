@@ -1,4 +1,4 @@
-import HexIsoLogo from '@/ui/icons/HexIsoLogo'
+import HexIsoLogo from '@/app/ui/icons/HexIsoLogo'
 import { ReactNode } from 'react'
 
 export default function layout({ children }: { children: ReactNode }) {

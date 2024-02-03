@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, Input, Link } from '@nextui-org/react'
+import { cookies } from 'next/headers'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 
@@ -41,6 +42,11 @@ export default function LoginPage() {
     }
 
     if (responseData.code === 201) {
+      const oneWeekFromNow = new Date()
+      oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
+
+      document.cookie = `session_id=${responseData.accessToken}; expires=${oneWeekFromNow}; path=/; Secure; SameSite=Strict`
+
       router.push('/admin/products')
     }
   }

@@ -5,9 +5,14 @@ import { redirect } from 'next/navigation'
 
 const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export async function Login(formData: FormData) {
-  const rawFormData = {
-    email: formData.get('email'),
+interface RawFormData {
+  email: FormDataEntryValue
+  password: FormDataEntryValue | null
+}
+
+export async function loginUser(formData: FormData): Promise<void> {
+  const rawFormData: RawFormData = {
+    email: (formData.get('email')?.toString() || '').toLowerCase(),
     password: formData.get('password'),
   }
 
@@ -20,6 +25,11 @@ export async function Login(formData: FormData) {
     credentials: 'include',
   })
 
+  const setCookies = response.headers.getSetCookie() || []
+  const sessionCookie = setCookies
+    .find((cookie) => cookie.includes('session_id'))
+    ?.split('=')
+
   const responseData = await response.json()
 
   if (responseData.code === 400 || responseData.code === 400) {
@@ -30,12 +40,14 @@ export async function Login(formData: FormData) {
     const oneWeekFromNow = new Date()
     oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
 
-    cookies().set('session_id', responseData.accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: true,
-    })
+    if (sessionCookie) {
+      cookies().set(sessionCookie[0], sessionCookie[1], {
+        httpOnly: true,
+        secure: true,
+        sameSite: true,
+      })
 
-    redirect('/admin/products')
+      redirect('/admin/products')
+    }
   }
 }

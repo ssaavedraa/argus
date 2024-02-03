@@ -1,7 +1,11 @@
 import { Button, Link } from '@nextui-org/react'
+import { cookies } from 'next/headers'
 import { Suspense } from 'react'
 import UserCard from '../UserCard/UserCard'
 import HexIsoLogo from '../icons/HexIsoLogo'
+import LogoutButton from './LogoutButton'
+
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export default function Sidebar() {
   const sideBarItems = [
@@ -50,9 +54,7 @@ export default function Sidebar() {
         </nav>
       </div>
       <div className=' h-auto w-3/6 mx-auto text-[#7720D1] opacity-60'>
-        <Button className='w-full' color='primary' variant='light'>
-          Log out
-        </Button>
+        <LogoutButton />
         <small className='tracking-wide text-md font-light'>Powered by</small>
         <HexIsoLogo />
       </div>

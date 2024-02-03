@@ -1,9 +1,8 @@
 'use client'
 
 import { Button, Input, Link } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
-import { Login } from './actions'
+import { loginUser } from './actions'
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -16,14 +15,14 @@ export default function LoginPage() {
 
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value.toLowerCase(),
+      [name]: value,
     }))
   }
 
   return (
     <>
       <h1 className='text-3xl pb-6 text-center'>Log In</h1>
-      <form className='flex flex-col items-center gap-4' action={Login}>
+      <form className='flex flex-col items-center gap-4' action={loginUser}>
         <Input
           name='email'
           type='text'

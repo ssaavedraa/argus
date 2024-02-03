@@ -4,6 +4,8 @@ import { Button, Input, Link } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 
+const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: '',
@@ -22,7 +24,7 @@ export default function LoginPage() {
   }
 
   const handleSubmit = async () => {
-    const response = await fetch('http://localhost:3001/auth/login', {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

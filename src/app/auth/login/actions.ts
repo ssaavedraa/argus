@@ -1,8 +1,5 @@
 'use server'
 
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-
 interface RawFormData {
   email: FormDataEntryValue
   password: FormDataEntryValue | null
@@ -27,12 +24,11 @@ export async function loginUser(formData: FormData): Promise<void> {
     body: JSON.stringify(rawFormData),
     credentials: 'include',
   })
-  console.debug('🚀 ~ loginUser ~ response:', response)
 
-  const setCookies = response.headers.getSetCookie() || []
-  const sessionCookie = setCookies
-    .find((cookie) => cookie.includes('session_id'))
-    ?.split('=')
+  // const setCookies = response.headers.getSetCookie() || []
+  // const sessionCookie = setCookies
+  //   .find((cookie) => cookie.includes('session_id'))
+  //   ?.split('=')
 
   const responseData = await response.json()
 
@@ -40,18 +36,18 @@ export async function loginUser(formData: FormData): Promise<void> {
     console.error(responseData.message)
   }
 
-  if (responseData.code === 201) {
-    const oneWeekFromNow = new Date()
-    oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
+  // if (responseData.code === 201) {
+  //   const oneWeekFromNow = new Date()
+  //   oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
 
-    if (sessionCookie) {
-      cookies().set(sessionCookie[0], sessionCookie[1], {
-        httpOnly: true,
-        secure: true,
-        sameSite: true,
-      })
+  //   if (sessionCookie) {
+  //     cookies().set(sessionCookie[0], sessionCookie[1], {
+  //       httpOnly: true,
+  //       secure: true,
+  //       sameSite: true,
+  //     })
 
-      redirect('/admin/products')
-    }
-  }
+  //     redirect('/admin/products')
+  //   }
+  // }
 }

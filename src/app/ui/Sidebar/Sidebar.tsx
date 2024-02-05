@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import UserCard from '../UserCard/UserCard'
 import HexIsoLogo from '../icons/HexIsoLogo'
 import LogoutButton from './LogoutButton'
+import logoutUser from './actions'
 
 export default function Sidebar() {
   const sideBarItems = [
@@ -51,7 +52,7 @@ export default function Sidebar() {
         </nav>
       </div>
       <div className=' h-auto w-3/6 mx-auto text-[#7720D1] opacity-60'>
-        <LogoutButton />
+        <LogoutButton handleLogout={logoutUser} />
         <small className='tracking-wide text-md font-light'>Powered by</small>
         <HexIsoLogo />
       </div>

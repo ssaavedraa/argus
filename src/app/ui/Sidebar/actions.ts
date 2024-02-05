@@ -1,6 +1,7 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export default async function logoutUser() {
   const baseUrl =
@@ -22,5 +23,6 @@ export default async function logoutUser() {
 
   if (response.ok) {
     cookies().delete('session_id')
+    redirect('/')
   }
 }

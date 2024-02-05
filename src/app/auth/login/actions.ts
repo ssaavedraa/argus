@@ -27,6 +27,7 @@ export async function loginUser(formData: FormData): Promise<void> {
     body: JSON.stringify(rawFormData),
     credentials: 'include',
   })
+  console.debug('🚀 ~ loginUser ~ response:', response)
 
   const setCookies = response.headers.getSetCookie() || []
   const sessionCookie = setCookies

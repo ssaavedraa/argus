@@ -1,11 +1,8 @@
-import { Button, Link } from '@nextui-org/react'
-import { cookies } from 'next/headers'
+import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
 import UserCard from '../UserCard/UserCard'
 import HexIsoLogo from '../icons/HexIsoLogo'
 import LogoutButton from './LogoutButton'
-
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export default function Sidebar() {
   const sideBarItems = [

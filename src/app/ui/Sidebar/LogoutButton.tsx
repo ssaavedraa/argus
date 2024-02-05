@@ -3,12 +3,15 @@
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
 export default function LogoutButton() {
   const router = useRouter()
   const handleLogout = async () => {
-    await fetch(`${apiUrl}/auth/logout`, {
+    const baseUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://hex.santiagosaavedra.com.co'
+
+    await fetch(`${baseUrl}/auth/logout`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,10 +1,13 @@
 import { User } from '@nextui-org/react'
 import { cookies } from 'next/headers'
 
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
 async function getProductsData(authHeader?: string) {
-  const response = await fetch(`${apiUrl}/users/me`, {
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://hex.santiagosaavedra.com.co'
+
+  const response = await fetch(`${baseUrl}/users/me`, {
     headers: {
       Authorization: `Bearer ${authHeader}`,
       Cookie: `session_id=${authHeader}`,

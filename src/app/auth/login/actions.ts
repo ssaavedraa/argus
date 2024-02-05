@@ -3,8 +3,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
 interface RawFormData {
   email: FormDataEntryValue
   password: FormDataEntryValue | null
@@ -16,7 +14,12 @@ export async function loginUser(formData: FormData): Promise<void> {
     password: formData.get('password'),
   }
 
-  const response = await fetch(`${apiUrl}/auth/login`, {
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://hex.santiagosaavedra.com.co'
+
+  const response = await fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

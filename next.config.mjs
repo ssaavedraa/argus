@@ -1,4 +1,22 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  async rewrites() {
+    if (process.env.NODE_ENV === 'development') {
+      return [
+        {
+          source: '/api/:path*',
+          destination: 'http://localhost:3001/:path*',
+        },
+      ]
+    } else {
+      return [
+        {
+          source: '/api/:path*',
+          destination: 'https://hex.api.santiagosaavedra.com.co/:path*',
+        },
+      ]
+    }
+  },
+}
 
-export default nextConfig;
+export default nextConfig

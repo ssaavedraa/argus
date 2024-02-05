@@ -7,7 +7,7 @@ async function getProductsData(authHeader?: string) {
       ? 'http://localhost:3000'
       : 'https://hex.santiagosaavedra.com.co'
 
-  const response = await fetch(`${baseUrl}/users/me`, {
+  const response = await fetch(`${baseUrl}/api/users/me`, {
     headers: {
       Authorization: `Bearer ${authHeader}`,
       Cookie: `session_id=${authHeader}`,

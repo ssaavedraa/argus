@@ -11,7 +11,7 @@ export default function LogoutButton() {
         ? 'http://localhost:3000'
         : 'https://hex.santiagosaavedra.com.co'
 
-    await fetch(`${baseUrl}/auth/logout`, {
+    await fetch(`${baseUrl}/api/auth/logout`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

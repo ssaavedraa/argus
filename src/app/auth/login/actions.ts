@@ -19,7 +19,7 @@ export async function loginUser(formData: FormData): Promise<void> {
       ? 'http://localhost:3000'
       : 'https://hex.santiagosaavedra.com.co'
 
-  const response = await fetch(`${baseUrl}/auth/login`, {
+  const response = await fetch(`${baseUrl}/api/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

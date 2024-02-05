@@ -1,11 +1,15 @@
 import { Button, ButtonGroup, Card, CardFooter, Image } from '@nextui-org/react'
 import { cookies } from 'next/headers'
 
-const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
 async function getProductsData(authHeader?: string) {
   'use server'
-  const response = await fetch(`${apiUrl}/products`, {
+
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://hex.santiagosaavedra.com.co'
+
+  const response = await fetch(`${baseUrl}/api/products`, {
     headers: {
       Authorization: `Bearer ${authHeader}`,
       Cookie: `session_id=${authHeader}`,
@@ -14,8 +18,7 @@ async function getProductsData(authHeader?: string) {
   })
 
   if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.message)
+    throw new Error()
   }
 
   return response.json()

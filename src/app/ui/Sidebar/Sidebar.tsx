@@ -40,6 +40,7 @@ export default function Sidebar() {
             {sideBarItems.map(({ name, path }) => (
               <li key={name}>
                 <Link
+                  isDisabled={name !== 'Products'}
                   color='foreground'
                   href={path}
                   className='w-full px-2 py4 h-8 flex items-center rounded-md hover:bg-purple-600 hover:shadow-lg hover:bg-opacity-20'

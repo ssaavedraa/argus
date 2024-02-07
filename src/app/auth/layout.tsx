@@ -8,7 +8,7 @@ export default function layout({ children }: { children: ReactNode }) {
   const session_id = cookieStore.get('session_id')
 
   if (session_id) {
-    redirect('/admin/dashboard')
+    redirect('/admin/products')
   }
   return (
     <main className='h-screen w-screen flex items-center'>

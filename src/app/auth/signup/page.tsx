@@ -3,9 +3,10 @@
 import Icon from '@/app/ui/icons/Icon'
 import { Button, Input, Link } from '@nextui-org/react'
 import { useState } from 'react'
+import { singupUser } from './actions'
 
 interface FormData {
-  fullName: string
+  name: string
   email: string
   password: string
   passwordConfirmation: string
@@ -27,7 +28,7 @@ interface PasswordRequirementErrors {
 
 export default function SignupPage() {
   const initialFormData: FormData = {
-    fullName: '',
+    name: '',
     email: '',
     password: '',
     passwordConfirmation: '',
@@ -70,7 +71,7 @@ export default function SignupPage() {
   }
 
   const formFields: (keyof FormData)[] = [
-    'fullName',
+    'name',
     'email',
     'password',
     'passwordConfirmation',
@@ -85,8 +86,6 @@ export default function SignupPage() {
 
   const getLabel = (field: string) => {
     switch (field) {
-      case 'fullName':
-        return 'Full Name'
       case 'passwordConfirmation':
         return 'Confirm password'
       default:
@@ -104,7 +103,7 @@ export default function SignupPage() {
         fullName: 'Full name is required',
       }))
     } else {
-      delete formErrors.fullName
+      delete formErrors.name
     }
   }
 
@@ -158,7 +157,7 @@ export default function SignupPage() {
       case 'email':
         validateEmail(fieldValue)
         break
-      case 'fullName':
+      case 'name':
         validateFullName(fieldValue)
         break
       case 'passwordConfirmation':
@@ -170,10 +169,11 @@ export default function SignupPage() {
   return (
     <>
       <h1 className='text-3xl pb-6 text-center'>Sign Up</h1>
-      <form className='flex flex-col items-center gap-4'>
+      <form className='flex flex-col items-center gap-4' action={singupUser}>
         {formFields.map((field) => (
           <div key={field} className='w-5/6'>
             <Input
+              name={field}
               type={
                 field.includes('password') && !isPasswordVisible
                   ? 'password'
@@ -237,6 +237,7 @@ export default function SignupPage() {
           </Link>
         </small>
         <Button
+          type='submit'
           variant='solid'
           color='primary'
           className='mt-4 shadow-neumorphic-sm'

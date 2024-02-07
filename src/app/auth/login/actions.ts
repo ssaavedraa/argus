@@ -14,10 +14,7 @@ export async function loginUser(formData: FormData): Promise<void> {
     password: formData.get('password'),
   }
 
-  const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://hex.santiagosaavedra.com.co'
+  const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
   const response = await fetch(`${baseUrl}/api/auth/login`, {
     method: 'POST',
@@ -35,7 +32,7 @@ export async function loginUser(formData: FormData): Promise<void> {
 
   const responseData = await response.json()
 
-  if (responseData.code === 400 || responseData.code === 400) {
+  if (responseData.code.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
     console.error(responseData.message)
   }
 

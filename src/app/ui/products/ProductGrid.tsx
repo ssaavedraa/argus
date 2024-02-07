@@ -3,11 +3,7 @@ import { cookies } from 'next/headers'
 
 async function getProductsData(authHeader?: string) {
   'use server'
-
-  const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://hex.santiagosaavedra.com.co'
+  const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
   const response = await fetch(`${baseUrl}/api/products`, {
     headers: {

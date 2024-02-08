@@ -8,7 +8,10 @@ interface RawFormData {
   password: FormDataEntryValue | null
 }
 
-export async function loginUser(formData: FormData): Promise<void> {
+export async function loginUser(
+  state: any,
+  formData: FormData,
+): Promise<void | { error: string }> {
   const rawFormData: RawFormData = {
     email: (formData.get('email')?.toString() || '').toLowerCase(),
     password: formData.get('password'),
@@ -33,7 +36,10 @@ export async function loginUser(formData: FormData): Promise<void> {
   const responseData = await response.json()
 
   if (responseData.code.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
-    console.error(responseData.message)
+    return {
+      ...state,
+      error: responseData.message,
+    }
   }
 
   if (responseData.code === 201) {

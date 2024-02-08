@@ -1,4 +1,4 @@
-import HexIsoLogo from '@/app/ui/icons/HexIsoLogo'
+import HexIsoLogo from '@/ui/icons/HexIsoLogo'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'

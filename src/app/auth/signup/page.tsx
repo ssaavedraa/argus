@@ -1,6 +1,6 @@
 'use client'
 
-import Icon from '@/app/ui/icons/Icon'
+import Icon from '@/ui/icons/Icon'
 import { Button, Input, Link } from '@nextui-org/react'
 import { useState } from 'react'
 import { singupUser } from './actions'
@@ -78,10 +78,13 @@ export default function SignupPage() {
   ]
 
   const [formData, setFormData] = useState<FormData>(initialFormData)
+
   const [formErrors, setFormErrors] =
     useState<Partial<FormData>>(initialFormData)
+
   const [passwordRequirementErrors, setPasswordRequirementErrors] =
     useState<PasswordRequirementErrors>(passwordRequirementErrorsInitialState)
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const getLabel = (field: string) => {
@@ -240,7 +243,7 @@ export default function SignupPage() {
           type='submit'
           variant='solid'
           color='primary'
-          className='mt-4 shadow-neumorphic-sm'
+          className='mt-4 shadow-neumorphic-sm disabled:opacity-50'
         >
           Sign up
         </Button>

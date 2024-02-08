@@ -1,4 +1,4 @@
-import ProductGrid from '@/app/ui/products/ProductGrid'
+import ProductGrid from '@/ui/products/ProductGrid'
 import { Suspense } from 'react'
 
 export default async function page() {

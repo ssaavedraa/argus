@@ -1,8 +1,8 @@
-import Topbar from '@/app/ui/Topbar/Topbar'
+import Topbar from '@/ui/Topbar/Topbar'
 import { cookies } from 'next/headers'
-import { ReactNode } from 'react'
-import Sidebar from '../ui/Sidebar/Sidebar'
 import { redirect } from 'next/navigation'
+import { ReactNode } from 'react'
+import Sidebar from '../../ui/Sidebar/Sidebar'
 
 const AdminPanelLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const cookieStore = cookies()

@@ -11,6 +11,7 @@ export async function getProductsData() {
   const response = await fetch(`${baseUrl}/api/users/me`, {
     headers: {
       Authorization: `Bearer ${session_id}`,
+      Cookie: `session_id=${session_id}`,
     },
     credentials: 'include',
   })

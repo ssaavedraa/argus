@@ -53,7 +53,7 @@ export default function LoginPage() {
           value={formData.password}
           onChange={handleChange}
         />
-        <small>
+        <small className='mt-4 block'>
           Do not have an account?
           <span className='px-2'>|</span>
           <Link color='secondary' href='signup'>

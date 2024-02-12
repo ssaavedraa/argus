@@ -8,7 +8,10 @@ interface RawFormData {
   password: FormDataEntryValue
 }
 
-export async function singupUser(formData: FormData) {
+export async function singupUser(
+  state: any,
+  formData: FormData,
+): Promise<void | { error: string }> {
   const rawFormData: RawFormData = {
     name: formData.get('name') || '',
     email: formData.get('email') || '',
@@ -27,15 +30,18 @@ export async function singupUser(formData: FormData) {
   })
 
   const responseData: {
-    code: number
+    status: number
     message: string
   } = await response.json()
 
-  if (responseData?.code.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
-    console.error(responseData.message)
+  if (responseData?.status.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
+    return {
+      ...state,
+      error: responseData.message,
+    }
   }
 
-  if (responseData.code === 201) {
+  if (responseData.status === 201) {
     const oneWeekFromNow = new Date()
     oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
 

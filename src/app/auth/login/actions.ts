@@ -33,16 +33,19 @@ export async function loginUser(
     .find((cookie) => cookie.includes('session_id'))
     ?.split('=')
 
-  const responseData = await response.json()
+  const responseData: {
+    status: number
+    message: string
+  } = await response.json()
 
-  if (responseData.code.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
+  if (responseData.status.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
     return {
       ...state,
       error: responseData.message,
     }
   }
 
-  if (responseData.code === 201) {
+  if (responseData.status === 201) {
     const oneWeekFromNow = new Date()
     oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
 

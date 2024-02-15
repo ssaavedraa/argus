@@ -1,4 +1,4 @@
-import Icon from '@/ui/icons/Icon'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Input } from '@nextui-org/react'
 import { ChangeEvent, useState } from 'react'
 import { LoginFormData } from '../types'
@@ -91,10 +91,11 @@ export default function Form({
             type='button'
             onClick={togglePasswordVisibility}
           >
-            <Icon
-              name={isPasswordVisible ? 'eyeHide' : 'eyeShow'}
-              size='small'
-            />
+            {isPasswordVisible ? (
+              <VisibilityOff fontSize='small' />
+            ) : (
+              <Visibility fontSize='small' />
+            )}
           </button>
         }
       />

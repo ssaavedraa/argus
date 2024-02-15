@@ -38,7 +38,7 @@ export async function loginUser(
     message: string
   } = await response.json()
 
-  if (responseData.status.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
+  if (responseData?.status?.toString().match(/\b(?:4\d{2}|5\d{2})\b/)) {
     return {
       ...state,
       error: responseData.message,

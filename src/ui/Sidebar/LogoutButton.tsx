@@ -1,5 +1,6 @@
 'use client'
 
+import LogoutIcon from '@mui/icons-material/Logout'
 import { Button } from '@nextui-org/react'
 
 export default function LogoutButton({
@@ -17,6 +18,7 @@ export default function LogoutButton({
       }}
     >
       Log out
+      <LogoutIcon />
     </Button>
   )
 }

@@ -9,7 +9,6 @@ export default function SignupPageForm({
   signupUser: SignupAction
 }) {
   const [state, formAction] = useFormState(signupUser, null)
-  console.debug('🚀 ~ file: SignupPageForm.tsx:12 ~ state:', state)
 
   return (
     <>

@@ -8,8 +8,8 @@ export default function Topbar() {
   const pageTitle = pathname?.split('/').pop()
 
   return (
-    <div className='h-[7vh]'>
+    <header className='h-[4vh]'>
       <h1 className='capitalize text-4xl'>{pageTitle}</h1>
-    </div>
+    </header>
   )
 }

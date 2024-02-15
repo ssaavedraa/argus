@@ -1,4 +1,9 @@
-import Icon from '@/ui/icons/Icon'
+import {
+  Cancel,
+  CheckCircle,
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material'
 import { Input } from '@nextui-org/react'
 import { useState } from 'react'
 import {
@@ -189,10 +194,11 @@ export default function Form({
                   type='button'
                   onClick={togglePasswordVisibility}
                 >
-                  <Icon
-                    name={isPasswordVisible ? 'eyeHide' : 'eyeShow'}
-                    size='small'
-                  />
+                  {isPasswordVisible ? (
+                    <VisibilityOff fontSize='small' />
+                  ) : (
+                    <Visibility fontSize='small' />
+                  )}
                 </button>
               )
             }
@@ -203,15 +209,14 @@ export default function Form({
               <ul className='font-light text-sm flex flex-col gap-1'>
                 {passwordRequirements.map(({ description, errorKey }) => (
                   <li
-                    className={`flex flex-row flex-nowrap gap-1 items-center ${isValid(errorKey) ? 'text-success' : 'text-danger'}`}
+                    className={`flex flex-row flex-nowrap text-nowrap gap-1 items-center ${isValid(errorKey) ? 'text-success' : 'text-danger'}`}
                     key={errorKey}
                   >
-                    <Icon
-                      name={
-                        isValid(errorKey) ? 'checkmarkCircle' : 'crossCircled'
-                      }
-                      size='small'
-                    />
+                    {isValid(errorKey) ? (
+                      <CheckCircle fontSize='small' />
+                    ) : (
+                      <Cancel fontSize='small' />
+                    )}
                     {description}
                   </li>
                 ))}

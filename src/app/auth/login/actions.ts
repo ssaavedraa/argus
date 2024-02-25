@@ -54,6 +54,7 @@ export async function loginUser(
         httpOnly: true,
         secure: true,
         sameSite: true,
+        expires: oneWeekFromNow,
       })
 
       redirect('/admin/products')

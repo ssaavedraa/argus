@@ -20,7 +20,7 @@ export async function singupUser(
 
   const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
-  const response = await fetch(`${baseUrl}/api/users/`, {
+  const response = await fetch(`${baseUrl}/cms/users/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

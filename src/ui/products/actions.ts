@@ -15,7 +15,7 @@ export async function getProductsData(): Promise<Product[]> {
   const session_id = cookieStore.get('session_id')?.value
   const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
-  const response = await fetch(`${baseUrl}/api/products`, {
+  const response = await fetch(`${baseUrl}/cms/products`, {
     headers: {
       Cookie: `session_id=${session_id}`,
     },

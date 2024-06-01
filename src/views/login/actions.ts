@@ -21,9 +21,9 @@ export async function loginUser(
       password: formData.get('password'),
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_AUTH_URL
+    const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
-    const response = await fetch(`${baseUrl}/auth/login`, {
+    const response = await fetch(`${baseUrl}/cms/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

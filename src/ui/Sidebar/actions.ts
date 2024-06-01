@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 export default async function logoutUser() {
   const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
-  const response = await fetch(`${baseUrl}/api/auth/logout`, {
+  const response = await fetch(`${baseUrl}/cms/auth/logout`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

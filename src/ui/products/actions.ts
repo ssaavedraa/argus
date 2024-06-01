@@ -12,18 +12,19 @@ import { cookies } from 'next/headers'
 
 export async function getProductsData(): Promise<Product[]> {
   const cookieStore = cookies()
-  const session_id = cookieStore.get('session_id')?.value
+  const session = cookieStore.get('session')?.value
   const baseUrl = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
 
   const response = await fetch(`${baseUrl}/cms/products`, {
     headers: {
-      Cookie: `session_id=${session_id}`,
+      Cookie: `session=${session}`,
     },
     credentials: 'include',
   })
 
   if (!response.ok) {
-    throw new Error()
+    // throw new Error()
+    return []
   }
 
   return response.json()

@@ -1,21 +1,22 @@
 'use client'
 
+import Alert from '@/shared-ui/Alert/Alert'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { useEffect } from 'react'
 import { useFormState } from 'react-dom'
 import { loginUser } from './actions'
-import Alert from './components/Alert'
 import Form from './components/Form'
 
 export default function LoginPageForm() {
   const [state, formAction] = useFormState(loginUser, null)
 
-  // const cookieStore = cookies()
-  // const session = cookieStore.get('session')
+  const cookieStore = cookies()
+  const session = cookieStore.get('session')
 
-  // if (session) {
-  //   redirect('/admin/products')
-  // }
+  if (session) {
+    redirect('/admin/products')
+  }
 
   useEffect(() => {
     if (state?.isSuccess) {

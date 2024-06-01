@@ -1,5 +1,5 @@
+import Alert from '@/shared-ui/Alert/Alert'
 import { useFormState } from 'react-dom'
-import Alert from './components/Alert'
 import Form from './components/Form'
 import { SignupAction } from './types'
 

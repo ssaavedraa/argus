@@ -1,6 +1,6 @@
 'use client'
 
-import LoginPageForm from '@/views/login/LoginPageForm'
+import LoginPageForm from '@/pages/login/LoginPageForm'
 
 export default function LoginPage() {
   return <LoginPageForm />

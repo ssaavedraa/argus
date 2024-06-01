@@ -1,10 +1,10 @@
+import HexIsoLogo from '@/shared-ui/icons/HexIsoLogo'
 import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
-import UserCard from '../UserCard/UserCard'
-import UserCardSkeleton from '../UserCard/UserCardSkeleton'
-import HexIsoLogo from '../icons/HexIsoLogo'
-import LogoutButton from './LogoutButton'
-import logoutUser from './actions'
+import LogoutButton from './LogoutButton/LogoutButton'
+import logoutUser from './LogoutButton/actions'
+import UserCard from './UserCard/UserCard'
+import UserCardSkeleton from './UserCard/UserCardSkeleton'
 
 export default function Sidebar() {
   const sideBarItems = [

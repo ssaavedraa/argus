@@ -1,6 +1,7 @@
 import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
 import UserCard from '../UserCard/UserCard'
+import UserCardSkeleton from '../UserCard/UserCardSkeleton'
 import HexIsoLogo from '../icons/HexIsoLogo'
 import LogoutButton from './LogoutButton'
 import logoutUser from './actions'
@@ -32,7 +33,7 @@ export default function Sidebar() {
   return (
     <>
       <div>
-        <Suspense fallback>
+        <Suspense fallback={<UserCardSkeleton />}>
           <UserCard />
         </Suspense>
         <nav className='mt-4'>

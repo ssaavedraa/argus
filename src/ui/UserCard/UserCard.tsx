@@ -1,13 +1,13 @@
 import { User } from '@nextui-org/react'
-import { getProductsData } from './actions'
+import { getUser } from './actions'
 
 export default async function UserCard() {
-  const userDetails = await getProductsData()
+  const userDetails = await getUser()
 
   return (
     <User
-      name={userDetails.name}
-      description={userDetails.companyRole}
+      name={userDetails.fullname}
+      description={userDetails.abn}
       avatarProps={{
         showFallback: true,
       }}

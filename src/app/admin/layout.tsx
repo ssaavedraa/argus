@@ -6,9 +6,9 @@ import Sidebar from '../../ui/Sidebar/Sidebar'
 
 const AdminPanelLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const cookieStore = cookies()
-  const session_id = cookieStore.get('session_id')
+  const session = cookieStore.get('session')
 
-  if (!session_id) {
+  if (!session) {
     redirect('/auth/login')
   }
 

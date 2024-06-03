@@ -8,4 +8,8 @@ export type LoginAction = (
   state: any,
   // eslint-disable-next-line no-unused-vars
   formData: FormData,
-) => Promise<void | { error: string }>
+) => Promise<void | {
+  message: string
+  isFailed: boolean
+  isSuccess: boolean
+}>

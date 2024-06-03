@@ -1,13 +1,15 @@
 import { Button, ButtonGroup, Card, CardFooter, Image } from '@nextui-org/react'
-import { getProductsData } from './actions'
+import { Product } from '../types'
 
-export default async function ProductGrid() {
-  const productList = await getProductsData()
-
+export default async function ProductGrid({
+  products,
+}: {
+  products: Product[]
+}) {
   return (
     <section className='scroll-m-1 overflow-y-scroll h-[90vh]'>
       <div className='flex flex-col md:grid md:grid-cols-3 lg:grid-cols-6 2xl:grid-cols-8 gap-8 pb-8'>
-        {productList?.map(({ name, price, imageUrl, id }) => (
+        {products?.map(({ name, price, imageUrl, id }) => (
           <Card
             key={id}
             radius='md'

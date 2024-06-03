@@ -2,11 +2,14 @@ import HexIsoLogo from '@/shared-ui/icons/HexIsoLogo'
 import { Link } from '@nextui-org/react'
 import { Suspense } from 'react'
 import LogoutButton from './LogoutButton/LogoutButton'
-import logoutUser from './LogoutButton/actions'
 import UserCard from './UserCard/UserCard'
 import UserCardSkeleton from './UserCard/skeleton/UserCardSkeleton'
 
-export default function Sidebar() {
+export default function Sidebar({
+  logoutAction,
+}: {
+  logoutAction: () => Promise<void>
+}) {
   const sideBarItems = [
     {
       name: 'Dashboard',
@@ -54,7 +57,7 @@ export default function Sidebar() {
         </nav>
       </div>
       <div className=' h-auto w-3/6 mx-auto text-[#7720D1] opacity-60'>
-        <LogoutButton handleLogout={logoutUser} />
+        <LogoutButton handleLogout={logoutAction} />
         <small className='tracking-wide text-md font-light'>Powered by</small>
         <HexIsoLogo />
       </div>

@@ -6,7 +6,7 @@ import { Button } from '@nextui-org/react'
 export default function LogoutButton({
   handleLogout,
 }: {
-  handleLogout: () => void
+  handleLogout: () => Promise<void>
 }) {
   return (
     <Button

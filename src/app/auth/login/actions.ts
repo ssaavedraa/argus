@@ -1,7 +1,5 @@
 'use server'
 
-import { cookies } from 'next/headers'
-
 interface RawFormData {
   email: FormDataEntryValue
   password: FormDataEntryValue | null
@@ -32,11 +30,11 @@ export async function loginUser(
       credentials: 'include',
     })
 
-    const setCookies = response.headers.getSetCookie() || []
+    // const setCookies = response.headers.getSetCookie() || []
 
-    const sessionCookie = setCookies
-      .find((cookie) => cookie.includes('session'))
-      ?.split('=')
+    // const sessionCookie = setCookies
+    //   .find((cookie) => cookie.includes('session'))
+    //   ?.split('=')
 
     const responseData: {
       status: number
@@ -53,17 +51,17 @@ export async function loginUser(
     }
 
     if (response.status === 201) {
-      const oneWeekFromNow = new Date()
-      oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
+      // const oneWeekFromNow = new Date()
+      // oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7)
 
-      if (sessionCookie) {
-        cookies().set(sessionCookie[0], sessionCookie[1], {
-          httpOnly: true,
-          secure: true,
-          sameSite: true,
-          expires: oneWeekFromNow,
-        })
-      }
+      // if (sessionCookie) {
+      //   cookies().set(sessionCookie[0], sessionCookie[1], {
+      //     httpOnly: true,
+      //     secure: true,
+      //     sameSite: true,
+      //     expires: oneWeekFromNow,
+      //   })
+      // }
 
       return {
         ...state,

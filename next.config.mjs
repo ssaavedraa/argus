@@ -12,7 +12,7 @@ const nextConfig = {
       return [
         {
           source: '/api/:path*',
-          destination: 'https://hex.api.santiagosaavedra.com.co/:path*',
+          destination: `${process.env.API_DOMAIN}/api:/path*`,
         },
       ]
     }

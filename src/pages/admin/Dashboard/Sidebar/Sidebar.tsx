@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 import LogoutButton from './LogoutButton/LogoutButton'
 import logoutUser from './LogoutButton/actions'
 import UserCard from './UserCard/UserCard'
-import UserCardSkeleton from './UserCard/UserCardSkeleton'
+import UserCardSkeleton from './UserCard/skeleton/UserCardSkeleton'
 
 export default function Sidebar() {
   const sideBarItems = [

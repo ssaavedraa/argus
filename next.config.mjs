@@ -5,7 +5,7 @@ const nextConfig = {
       return [
         {
           source: '/cms/:path*',
-          destination: 'http://localhost:8080/:path*',
+          destination: 'http://localhost:8080/api/:path*',
         },
       ]
     } else {

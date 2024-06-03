@@ -1,14 +1,7 @@
 'use server'
 
-export interface Product {
-  id: number
-  name: string
-  price: number
-  description: string
-  imageUrl: string
-}
-
 import { cookies } from 'next/headers'
+import { Product } from '../types'
 
 export async function getProductsData(): Promise<Product[]> {
   const cookieStore = cookies()

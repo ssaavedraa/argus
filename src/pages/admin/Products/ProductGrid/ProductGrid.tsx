@@ -2,14 +2,14 @@ import { Button, ButtonGroup, Card, CardFooter, Image } from '@nextui-org/react'
 import { getProductsData } from './actions'
 
 export default async function ProductGrid() {
-  const productList: any[] = await getProductsData()
+  const productList = await getProductsData()
 
   return (
     <section className='scroll-m-1 overflow-y-scroll h-[90vh]'>
       <div className='flex flex-col md:grid md:grid-cols-3 lg:grid-cols-6 2xl:grid-cols-8 gap-8 pb-8'>
-        {productList?.map(({ name, price, imageUrl }) => (
+        {productList?.map(({ name, price, imageUrl, id }) => (
           <Card
-            key={name}
+            key={id}
             radius='md'
             className='border-none h-full'
             classNames={{

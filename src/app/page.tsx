@@ -1,4 +1,4 @@
-import HexIsoLogo from '../shared-ui/icons/HexIsoLogo'
+import { HexIsoLogo } from '@hex-icons'
 
 export default function Home() {
   return (

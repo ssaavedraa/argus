@@ -4,6 +4,73 @@
     "no-unused-vars": [
       "error",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
+    "import/no-internal-modules": [
+      "error",
+      {
+        "allow": ["next/**"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external", "internal"]],
+        "pathGroups": [
+          {
+            "pattern": "@shared-components/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@hex-icons/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@components/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@domain/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@store/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@hooks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@types/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@lib/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

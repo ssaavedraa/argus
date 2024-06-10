@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from '@nextui-org/react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -60,7 +60,7 @@ export default function AuthFormFooter() {
     <small className='mt-4 block text-center'>
       {footerProps.message}
       <span className='px-2'>|</span>
-      <Link color='secondary' href={footerProps.cta.href}>
+      <Link className='text-accent' href={footerProps.cta.href}>
         {footerProps.cta.message}
       </Link>
     </small>

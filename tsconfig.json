@@ -19,7 +19,7 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@shared-components": ["components/ui/shared/index.ts"],
+      "@shared-components/*": ["components/ui/shared/*/index.ts"],
       "@hex-icons": ["components/ui/icons/index.ts"],
       "@components/*": ["components/*/index.ts"],
       "@domain/*": ["domain/*"],

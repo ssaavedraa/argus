@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  @apply bg-hex-1000 text-hex-50 text-base
+}
+
+input {
+  @apply bg-hex-650
+}
+
+input:-internal-autofill-selected {
+  @apply bg-red-500 !important
+}

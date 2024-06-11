@@ -1,4 +1,4 @@
-export default function HexIsoLogo() {
+export const HexIsoLogo = () => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

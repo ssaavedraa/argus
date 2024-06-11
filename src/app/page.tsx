@@ -1,6 +1,6 @@
 import { HexIsoLogo } from '@hex-icons'
 
-export default function Home() {
+const Home = () => {
   return (
     <main className='flex min-h-screen w-screen flex-col items-center justify-between p-24'>
       <section className='w-screen lg:w-2/3 my-auto max-w-[1280px]'>
@@ -14,3 +14,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home

@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 
 import { InputProps } from './types'
 
-const Input: FC<InputProps> = ({
+export const Input: FC<InputProps> = ({
   value,
   handleChange,
   name,
@@ -43,5 +43,3 @@ const Input: FC<InputProps> = ({
     </div>
   )
 }
-
-export default Input

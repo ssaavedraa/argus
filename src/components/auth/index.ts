@@ -1,3 +1,3 @@
-export { default as AuthFormFooter } from './AuthFormFooter';
-export { default as AuthFormHeader } from './AuthFormHeader';
+export { AuthFormFooter } from './AuthFormFooter';
+export { AuthFormHeader } from './AuthFormHeader';
 

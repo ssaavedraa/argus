@@ -5,7 +5,7 @@ import { Input } from '@shared-components/input'
 
 import { FormFieldProps } from './types'
 
-const FormField: FC<FormFieldProps> = ({
+export const FormField: FC<FormFieldProps> = ({
   label,
   name,
   type = 'text',
@@ -28,5 +28,3 @@ const FormField: FC<FormFieldProps> = ({
       )
   }
 }
-
-export default FormField

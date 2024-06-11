@@ -1,3 +1,5 @@
-export default function SignupPage() {
-  return <div>page</div>
+const SignupPage = () => {
+  return <div>SignupPage</div>
 }
+
+export default SignupPage

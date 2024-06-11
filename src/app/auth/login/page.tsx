@@ -9,7 +9,7 @@ interface UserCredentials {
   password: string
 }
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [userCredentials, setUserCredentials] = useState<UserCredentials>(
     {} as UserCredentials,
   )
@@ -51,3 +51,5 @@ export default function LoginPage() {
     </div>
   )
 }
+
+export default LoginPage

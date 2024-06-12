@@ -8,7 +8,7 @@
     "import/no-internal-modules": [
       "error",
       {
-        "allow": ["next/**"]
+        "allow": ["next/**", "@pages/**"]
       }
     ],
     "import/order": [

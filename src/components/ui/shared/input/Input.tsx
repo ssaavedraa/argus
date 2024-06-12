@@ -29,7 +29,6 @@ export const Input: FC<InputProps> = ({
           className='px-2 pt-6 pb-2 text-md text-primary outline-none border-none leading-5 rounded-lg duration-200 peer w-full autofill:focus:bg-red-500'
           type={type}
           name={name}
-          required={required}
           ref={inputRef}
           value={value}
           onChange={handleChange}
@@ -38,6 +37,7 @@ export const Input: FC<InputProps> = ({
           className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-focus:text-primary-foreground peer-focus:-translate-y-2 peer-focus:text-xs ${getLabelStyles()}`}
         >
           {label}
+          {required && <span className='text-danger'>*</span>}
         </span>
       </label>
     </div>

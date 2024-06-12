@@ -1,8 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { ChangeEvent } from 'react'
+import { Dispatch } from 'react'
+import { ZodObject } from 'zod'
 
 export interface FormProps {
-  fields: FormFieldProps[]
+  fields: Omit<FormFieldProps, 'setFormData' | 'value'>[]
+  schema: ZodObject<Reacord<string, any>>
+  cta: string
+  onSubmit: (values: z.infer<typeof T>) => void
 }
 
 export interface FormFieldProps extends Omit<FormElement, 'classname'> {
@@ -10,7 +14,7 @@ export interface FormFieldProps extends Omit<FormElement, 'classname'> {
   label: string
   type?: FormElementType
   value: string
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void
+  setFormData: Dispatch
 }
 
 type FormElementType = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "textarea" | "time" | "url" | "week";

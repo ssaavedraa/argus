@@ -39,3 +39,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - Every react functional component should use arrow function syntax
 - Pages and layout should be exported as default, ui components should be exported as a const
+- Pages subfolder should follow the same file structure as app router

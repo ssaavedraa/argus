@@ -21,7 +21,7 @@ export const AuthFormHeader = () => {
       <i className='w-1/3 h-auto block mx-auto mb-3'>
         <HexIsoLogo />
       </i>
-      <h1 className='font-extralight text-3xl text-center block mt-4 mb-6'>
+      <h1 className='font-extralight text-3xl text-center block mt-4'>
         {title()}
       </h1>
     </>

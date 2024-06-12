@@ -1,5 +1,5 @@
 'use client'
-import { FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 
 import { Input } from '@shared-components/input'
 
@@ -10,13 +10,22 @@ export const FormField: FC<FormFieldProps> = ({
   name,
   type = 'text',
   required = false,
-  handleChange,
+  setFormData,
   value,
 }) => {
   switch (type) {
     case 'textarea':
       return <textarea />
     default:
+      const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+
+        setFormData((fd: Record<string, any>) => ({
+          ...fd,
+          [name]: value,
+        }))
+      }
+
       return (
         <Input
           label={label}

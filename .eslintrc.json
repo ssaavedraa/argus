@@ -5,12 +5,6 @@
       "error",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
     ],
-    "import/no-internal-modules": [
-      "error",
-      {
-        "allow": ["next/**", "@pages/**"]
-      }
-    ],
     "import/order": [
       "error",
       {

@@ -33,6 +33,7 @@ export const FormField: FC<FormFieldProps> = ({
           required={required}
           value={value}
           handleChange={handleChange}
+          type={type}
         />
       )
   }

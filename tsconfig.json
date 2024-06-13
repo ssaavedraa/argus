@@ -14,8 +14,8 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
-      },
+        "name": "next"
+      }
     ],
     "baseUrl": "./src",
     "paths": {
@@ -28,8 +28,10 @@
       "@hooks": ["hooks/index.ts"],
       "@pages/*": ["pages/*"],
       "@actions": ["actions/index.ts"],
-    },
+      "@auth": ["auth.ts"],
+      "@routes": ["routes.ts"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "deprecated"],
+  "exclude": ["node_modules", "deprecated"]
 }

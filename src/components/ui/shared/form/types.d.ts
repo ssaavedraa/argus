@@ -6,7 +6,7 @@ export interface FormProps {
   fields: Omit<FormFieldProps, 'setFormData' | 'value'>[]
   schema: ZodObject<Reacord<string, any>>
   cta: string
-  onSubmit: (values: z.infer<typeof T>) => void
+  onSubmit: (values: z.infer<typeof T>) => Promise<{ error: string | undefined }>
 }
 
 export interface FormFieldProps extends Omit<FormElement, 'classname'> {

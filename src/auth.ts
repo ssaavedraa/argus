@@ -4,9 +4,7 @@ import Credentials from "next-auth/providers/credentials"
 import { LoginSchema } from '@utils/validation-schemas'
 
 
-export const { handlers: {
-  GET, POST
-}, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       authorize: async (credentials) => {
@@ -17,6 +15,9 @@ export const { handlers: {
 
           const response = await fetch(`${process.env.API_DOMAIN}/api/users/login`, {
             method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
               email,
               password
@@ -25,13 +26,11 @@ export const { handlers: {
 
           if (!response.ok) {
             const errorResponse = await response.json()
-            console.debug('🚀 ~ file: auth.ts:27 ~ authorize: ~ errorResponse:', errorResponse)
 
             throw new Error(errorResponse.message || 'Invalid credentials')
           }
 
           const user = await response.json()
-          console.debug('🚀 ~ file: auth.ts:32 ~ authorize: ~ user:', user)
 
           return user
         }
@@ -42,5 +41,6 @@ export const { handlers: {
   ],
   pages: {
     signIn: '/auth/login'
-  }
+  },
+  debug: true,
 })

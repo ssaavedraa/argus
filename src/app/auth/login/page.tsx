@@ -1,4 +1,4 @@
-import { login } from '../../../actions'
+import { login } from '@actions'
 import LoginPage from '@pages/auth/Login'
 
 const AuthLogin = () => {

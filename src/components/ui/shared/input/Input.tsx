@@ -14,9 +14,7 @@ export const Input: FC<InputProps> = ({
   const [hasContent, setHasContent] = useState<boolean>(false)
 
   const getLabelStyles = () =>
-    hasContent
-      ? '-translate-y-2 text-xs text-primary-foreground'
-      : '-translate-y-0 text-primary'
+    hasContent ? '-translate-y-2 text-xs' : '-translate-y-0'
 
   useEffect(() => {
     setHasContent(!!inputRef.current?.value)
@@ -26,7 +24,7 @@ export const Input: FC<InputProps> = ({
     <div className='flex flex-col items-center justify-center w-full'>
       <label className='relative w-full' htmlFor={name}>
         <input
-          className='px-2 pt-6 pb-2 text-md text-primary outline-none border-none leading-5 rounded-lg duration-200 peer w-full autofill:focus:bg-red-500'
+          className='px-2 pt-6 pb-2 text-md text-primary outline-none border-none leading-5 rounded-lg duration-200 peer w-full bg-hex-600 shadow-lg autofill:focus:text-hex-900'
           type={type}
           name={name}
           ref={inputRef}
@@ -34,7 +32,7 @@ export const Input: FC<InputProps> = ({
           onChange={handleChange}
         />
         <span
-          className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-focus:text-primary-foreground peer-focus:-translate-y-2 peer-focus:text-xs ${getLabelStyles()}`}
+          className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-autofill:peer-focus:text-hex-900 peer-focus:-translate-y-2 peer-focus:text-xs peer-autofill:text-hex-900 ${getLabelStyles()}`}
         >
           {label}
           {required && <span className='text-danger'>*</span>}

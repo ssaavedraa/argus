@@ -1,4 +1,5 @@
 import { auth, signOut } from '@auth'
+import { authRoutes } from '@routes'
 
 const DashboardPage = async () => {
   const session = await auth()
@@ -11,7 +12,9 @@ const DashboardPage = async () => {
         action={async () => {
           'use server'
 
-          await signOut()
+          await signOut({
+            redirectTo: authRoutes[0],
+          })
         }}
       >
         <button>Sign Out</button>

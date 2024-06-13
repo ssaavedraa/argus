@@ -15,7 +15,7 @@ const RootLayout = ({
   children: React.ReactNode
 }>) => {
   return (
-    <html lang='en'>
+    <html lang='en' className='h-screen w-screen'>
       <body className={inter.className}>{children}</body>
     </html>
   )

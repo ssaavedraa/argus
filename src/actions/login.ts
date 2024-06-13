@@ -1,6 +1,7 @@
 'use server'
 
 import { signIn } from '@auth'
+import { DEFAULT_LOGIN_REDIRECT } from '@routes'
 import { AuthError } from 'next-auth'
 import { z } from 'zod'
 
@@ -21,9 +22,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn('credentials', {
       email,
       password,
-      redirect: false
-      // redirectTo: DEFAULT_LOGIN_REDIRECT
-    })
+      redirectTo: DEFAULT_LOGIN_REDIRECT
+    }).then((data) => console.debug(data))
   } catch (error) {
     console.error('[ERROR]: ', error)
     if (error instanceof AuthError) {

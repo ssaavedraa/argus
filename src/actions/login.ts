@@ -9,20 +9,18 @@ import { DEFAULT_LOGIN_REDIRECT } from '@hex-routes'
 
 import { LoginValidationSchema } from '@hex-utils/validation-schemas'
 
-
 export const login = async (formData: FormData) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-
   const userCredentials = {
     email: formData.get('email'),
-    password: formData.get('password')
+    password: formData.get('password'),
   }
 
-  const validatedFields = await LoginValidationSchema.safeParseAsync(userCredentials)
+  const validatedFields =
+    await LoginValidationSchema.safeParseAsync(userCredentials)
 
   if (!validatedFields.success) {
     return {
-      error: 'Invalid credentials'
+      error: 'Invalid credentials',
     }
   }
 
@@ -33,12 +31,14 @@ export const login = async (formData: FormData) => {
     await signIn('credentials', {
       email,
       password,
-      redirect: false
+      redirect: false,
     })
   } catch (error) {
     console.error('[ERROR]: ', error)
     if (error instanceof AuthError) {
-      loginError = error.cause?.err?.message || 'Something went wrong. Please try again later'
+      loginError =
+        error.cause?.err?.message ||
+        'Something went wrong. Please try again later'
     }
 
     throw error

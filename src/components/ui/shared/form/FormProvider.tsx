@@ -54,7 +54,7 @@ export const FormProvider = <T extends object>(props: FormProviderProps) => {
 
   const validateField = (name: keyof T, value: T[keyof T]) => {
     try {
-      const result = validationSchema.parse({ [name]: value})
+      validationSchema.parse({ [name]: value})
 
       setValidationErrors((ve) => ({
         ...ve,

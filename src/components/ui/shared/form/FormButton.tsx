@@ -1,5 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
+import { Spinner } from '@hex-shared-components/spinner'
+
 import { useFormContext } from './FormProvider'
 
 export const FormButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
@@ -15,6 +17,7 @@ export const FormButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
       disabled={isPending}
       {...props}
     >
+      {isPending && <Spinner />}
       {children}
     </button>
   )

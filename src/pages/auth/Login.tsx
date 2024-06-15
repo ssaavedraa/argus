@@ -1,39 +1,45 @@
 'use client'
 
-import { Form, FormProps } from '@hex-shared-components/form'
+import {
+  Form,
+  FormButton,
+  FormField,
+  FormInput,
+} from '@hex-shared-components/form'
 import { LoginSchema } from '@hex-utils/validation-schemas'
 
 interface LoginPageProps {
-  action: any
+  // eslint-disable-next-line no-unused-vars
+  action: (formData: FormData) => Promise<{ error: string }>
+}
+
+export interface UserCredentials {
+  email: string
+  password: string
+}
+
+const initialValues: UserCredentials = {
+  email: '',
+  password: '',
 }
 
 const LoginPage = ({ action }: LoginPageProps) => {
-  const formFields: FormProps['fields'] = [
-    {
-      name: 'email',
-      label: 'email',
-      type: 'email',
-      required: true,
-      autoComplete: 'email',
-    },
-    {
-      name: 'password',
-      label: 'password',
-      type: 'password',
-      required: true,
-      autoComplete: 'current-password',
-    },
-  ]
-
   return (
-    <div className='flex flex-col items-center w-5/6 mx-auto'>
-      <Form
-        fields={formFields}
-        onSubmit={action}
-        schema={LoginSchema}
-        cta='Log In'
-      />
-    </div>
+    <Form
+      initialValues={initialValues}
+      action={action}
+      validationSchema={LoginSchema}
+    >
+      <FormField name='email' label='Email' required>
+        <FormInput type='email' autoComplete='email' />
+      </FormField>
+      <FormField name='password' label='password' required>
+        <FormInput type='password' autoComplete='curent-password' />
+      </FormField>
+      <FormButton>
+        <p>Sign In</p>
+      </FormButton>
+    </Form>
   )
 }
 

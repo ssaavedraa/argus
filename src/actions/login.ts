@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { signIn } from '@hex-auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@hex-routes'
 
-import { LoginSchema } from '@hex-utils/validation-schemas'
+import { LoginValidationSchema } from '@hex-utils/validation-schemas'
 
 
 export const login = async (formData: FormData) => {
@@ -18,7 +18,7 @@ export const login = async (formData: FormData) => {
     password: formData.get('password')
   }
 
-  const validatedFields = await LoginSchema.safeParseAsync(userCredentials)
+  const validatedFields = await LoginValidationSchema.safeParseAsync(userCredentials)
 
   if (!validatedFields.success) {
     return {

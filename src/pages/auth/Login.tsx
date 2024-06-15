@@ -6,7 +6,7 @@ import {
   FormField,
   FormInput,
 } from '@hex-shared-components/form'
-import { LoginSchema } from '@hex-utils/validation-schemas'
+import { LoginValidationSchema } from '@hex-utils/validation-schemas'
 
 interface LoginPageProps {
   // eslint-disable-next-line no-unused-vars
@@ -28,7 +28,7 @@ const LoginPage = ({ action }: LoginPageProps) => {
     <Form
       initialValues={initialValues}
       action={action}
-      validationSchema={LoginSchema}
+      validationSchema={LoginValidationSchema}
     >
       <FormField name='email' label='Email' required>
         <FormInput type='email' autoComplete='email' />

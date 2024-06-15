@@ -1,7 +1,7 @@
 import NextAuth, { CredentialsSignin } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 
-import { LoginSchema } from '@hex-utils/validation-schemas'
+import { LoginValidationSchema } from '@hex-utils/validation-schemas'
 
 class CustomError extends CredentialsSignin {
   code = 'custom_error'
@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       authorize: async (credentials) => {
-        const validatedFields = await LoginSchema.safeParseAsync(credentials)
+        const validatedFields = await LoginValidationSchema.safeParseAsync(credentials)
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data

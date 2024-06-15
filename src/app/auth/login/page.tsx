@@ -1,8 +1,15 @@
-'use client'
+import { Suspense } from 'react'
 
-import LoginPageForm from '@/views/login/LoginPageForm'
-import { loginUser } from './actions'
+import { login } from '@hex-actions'
 
-export default function LoginPage() {
-  return <LoginPageForm loginUser={loginUser} />
+import LoginPage from '@hex-pages/auth/Login'
+
+const AuthLogin = () => {
+  return (
+    <Suspense>
+      <LoginPage action={login} />
+    </Suspense>
+  )
 }
+
+export default AuthLogin

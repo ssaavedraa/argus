@@ -3,7 +3,6 @@
 import { AuthError } from 'next-auth'
 // eslint-disable-next-line import/order
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
 
 import { signIn } from '@hex-auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@hex-routes'
@@ -11,8 +10,15 @@ import { DEFAULT_LOGIN_REDIRECT } from '@hex-routes'
 import { LoginSchema } from '@hex-utils/validation-schemas'
 
 
-export const login = async (values: z.infer<typeof LoginSchema>) => {
-  const validatedFields = await LoginSchema.safeParseAsync(values)
+export const login = async (formData: FormData) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+
+  const userCredentials = {
+    email: formData.get('email'),
+    password: formData.get('password')
+  }
+
+  const validatedFields = await LoginSchema.safeParseAsync(userCredentials)
 
   if (!validatedFields.success) {
     return {

@@ -1,5 +1,5 @@
-import { auth, signOut } from '@auth'
-import { authRoutes } from '@routes'
+import { auth, signOut } from '@hex-auth'
+import { publicRoutes } from '@hex-routes'
 
 const DashboardPage = async () => {
   const session = await auth()
@@ -13,7 +13,7 @@ const DashboardPage = async () => {
           'use server'
 
           await signOut({
-            redirectTo: authRoutes[0],
+            redirectTo: publicRoutes[0],
           })
         }}
       >

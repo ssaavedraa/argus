@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { AuthFormFooter, AuthFormHeader } from '@components/auth'
+import { AuthFormFooter, AuthFormHeader } from '@hex-components/auth'
 
 interface AuthLayoutProps {
   children: ReactNode

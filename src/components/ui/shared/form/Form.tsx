@@ -1,9 +1,10 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { FormEvent, useState, useTransition } from 'react'
 import { z } from 'zod'
 
-import { Spinner } from '@shared-components/spinner'
+import { Spinner } from '@hex-shared-components/spinner'
 
 import { FormField } from './FormField'
 import { FormProps } from './types'
@@ -12,7 +13,11 @@ export const Form = ({ fields, schema, onSubmit, cta }: FormProps) => {
   const [formData, setFormData] = useState<z.infer<typeof schema>>(
     {} as z.infer<typeof schema>,
   )
-  const [error, setError] = useState<string>('')
+
+  const searchParams = useSearchParams()
+  const [error, setError] = useState<string | null>(
+    searchParams?.get('error') ?? null,
+  )
 
   const [isPending, startTransition] = useTransition()
 
@@ -21,7 +26,7 @@ export const Form = ({ fields, schema, onSubmit, cta }: FormProps) => {
     startTransition(() => {
       onSubmit(formData)
         .then((data) => {
-          setError(data?.error || '')
+          setError(data?.error || null)
         })
         .catch((error) => console.error({ error }))
     })
@@ -32,14 +37,19 @@ export const Form = ({ fields, schema, onSubmit, cta }: FormProps) => {
       className='flex flex-col gap-3 my-4 w-full mx-auto'
       onSubmit={handleSubmit}
     >
-      {error && <p>{error}</p>}
-      {fields.map((field, index) => (
+      {(error || searchParams?.get('error')) && (
+        <p>{error || searchParams?.get('error')}</p>
+      )}
+      {fields.map(({ type, name, label, autoComplete, ...field }, index) => (
         <FormField
           key={index}
           setFormData={setFormData}
-          value={formData[field.name] || ''}
-          type={field.type}
+          value={formData[name] || ''}
+          type={type}
           disabled={isPending}
+          name={name}
+          label={label}
+          autoComplete={autoComplete}
           {...field}
         />
       ))}

@@ -1,5 +1,7 @@
-import { login } from '@actions'
-import LoginPage from '@pages/auth/Login'
+import { login } from '@hex-actions'
+
+import LoginPage from '@hex-pages/auth/Login'
+
 
 const AuthLogin = () => {
   return <LoginPage action={login} />

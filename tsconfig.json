@@ -19,17 +19,17 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@shared-components/*": ["components/ui/shared/*/index.ts"],
+      "@hex-shared-components/*": ["components/ui/shared/*/index.ts"],
       "@hex-icons": ["components/ui/icons/index.ts"],
-      "@components/*": ["components/*/index.ts"],
-      "@domain/*": ["domain/*"],
-      "@store": ["store/index.ts"],
-      "@utils/*": ["utils/*/index.ts"],
-      "@hooks": ["hooks/index.ts"],
-      "@pages/*": ["pages/*"],
-      "@actions": ["actions/index.ts"],
-      "@auth": ["auth.ts"],
-      "@routes": ["routes.ts"]
+      "@hex-components/*": ["components/*/index.ts"],
+      "@hex-domain/*": ["domain/*"],
+      "@hex-store": ["store/index.ts"],
+      "@hex-utils/*": ["utils/*/index.ts"],
+      "@hex-hooks": ["hooks/index.ts"],
+      "@hex-pages/*": ["pages/*"],
+      "@hex-actions": ["actions/index.ts"],
+      "@hex-auth": ["auth.ts"],
+      "@hex-routes": ["routes.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

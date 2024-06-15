@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, FC } from 'react'
 
-import { Input } from '@shared-components/input'
+import { Input } from '@hex-shared-components/input'
 
 import { FormFieldProps } from './types'
 
@@ -12,6 +12,7 @@ export const FormField: FC<FormFieldProps> = ({
   required = false,
   setFormData,
   value,
+  ...props
 }) => {
   switch (type) {
     case 'textarea':
@@ -34,6 +35,7 @@ export const FormField: FC<FormFieldProps> = ({
           value={value}
           handleChange={handleChange}
           type={type}
+          {...props}
         />
       )
   }

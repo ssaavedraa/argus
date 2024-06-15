@@ -1,8 +1,11 @@
-import NextAuth from "next-auth"
-import Credentials from "next-auth/providers/credentials"
+import NextAuth, { CredentialsSignin } from 'next-auth'
+import Credentials from 'next-auth/providers/credentials'
 
-import { LoginSchema } from '@utils/validation-schemas'
+import { LoginSchema } from '@hex-utils/validation-schemas'
 
+class CustomError extends CredentialsSignin {
+  code = 'custom_error'
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -13,21 +16,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (validatedFields.success) {
           const { email, password } = validatedFields.data
 
-          const response = await fetch(`${process.env.API_DOMAIN}/api/users/login`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
+          const response = await fetch(
+            `${process.env.API_DOMAIN}/api/users/login`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email,
+                password,
+              }),
             },
-            body: JSON.stringify({
-              email,
-              password
-            })
-          })
+          )
 
           if (!response.ok) {
             const errorResponse = await response.json()
 
-            throw new Error(errorResponse.message || 'Invalid credentials')
+            throw new CustomError(
+              errorResponse.message || 'Invalid credentials',
+            )
           }
 
           const user = await response.json()
@@ -36,11 +44,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         return null
-      }
-    })
+      },
+    }),
   ],
   pages: {
-    signIn: '/auth/login'
+    signIn: '/auth/login',
   },
-  debug: true,
+  session: {
+    strategy: 'jwt',
+  },
+  // TODO; EXTEND USER TYPE TO INCLUDE ADDITIONAL FIELDS
 })

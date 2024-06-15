@@ -1,8 +1,7 @@
 'use client'
 
-import { Form, FormProps } from '@shared-components/form'
-
-import { LoginSchema } from '@utils/validation-schemas'
+import { Form, FormProps } from '@hex-shared-components/form'
+import { LoginSchema } from '@hex-utils/validation-schemas'
 
 interface LoginPageProps {
   action: any
@@ -15,12 +14,14 @@ const LoginPage = ({ action }: LoginPageProps) => {
       label: 'email',
       type: 'email',
       required: true,
+      autoComplete: 'email',
     },
     {
       name: 'password',
       label: 'password',
       type: 'password',
       required: true,
+      autoComplete: 'current-password',
     },
   ]
 

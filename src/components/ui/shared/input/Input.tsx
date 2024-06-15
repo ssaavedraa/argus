@@ -9,6 +9,7 @@ export const Input: FC<InputProps> = ({
   type,
   required,
   label,
+  ...props
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [hasContent, setHasContent] = useState<boolean>(false)
@@ -30,6 +31,7 @@ export const Input: FC<InputProps> = ({
           ref={inputRef}
           value={value}
           onChange={handleChange}
+          {...props}
         />
         <span
           className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-autofill:peer-focus:text-hex-900 peer-focus:-translate-y-2 peer-focus:text-xs peer-autofill:text-hex-900 ${getLabelStyles()}`}

@@ -1,6 +1,8 @@
 'use client'
-import { HexIsoLogo } from '@hex-icons'
+
 import { usePathname } from 'next/navigation'
+
+import { HexIsoLogo } from '@hex-icons'
 
 export const AuthFormHeader = () => {
   const pathname = usePathname()?.split('/')[2] ?? ''

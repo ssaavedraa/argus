@@ -11,47 +11,12 @@
         "groups": [["builtin", "external", "internal"]],
         "pathGroups": [
           {
-            "pattern": "@shared-components/**",
+            "pattern": "@hex-*",
             "group": "internal",
             "position": "after"
           },
           {
-            "pattern": "@hex-icons/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@components/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@domain/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@store/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@utils/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@hooks/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@types/**",
-            "group": "internal",
-            "position": "after"
-          },
-          {
-            "pattern": "@lib/**",
+            "pattern": "@hex-*/**",
             "group": "internal",
             "position": "after"
           }

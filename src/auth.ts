@@ -11,7 +11,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       authorize: async (credentials) => {
-        const validatedFields = await LoginValidationSchema.safeParseAsync(credentials)
+        const validatedFields =
+          await LoginValidationSchema.safeParseAsync(credentials)
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data
@@ -53,5 +54,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  // TODO; EXTEND USER TYPE TO INCLUDE ADDITIONAL FIELDS
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      token = {
+        ...token,
+        ...user,
+      }
+
+      return token
+    },
+    session: async ({ session, token }) => {
+      const excludedFields = ['iat', 'exp', 'jti', 'sub']
+
+      const userFields = Object.keys(token).filter(
+        (field) => !excludedFields.includes(field),
+      )
+
+      const mappedUser = userFields.reduce(
+        (userAcc, field) => ({
+          ...userAcc,
+          [field]: token[field],
+        }),
+        {},
+      )
+
+      session = {
+        ...session,
+        user: {
+          ...session.user,
+          ...mappedUser,
+        },
+      }
+
+      return session
+    },
+  },
 })

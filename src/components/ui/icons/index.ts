@@ -1,3 +1,2 @@
-export { HexIntegratedLogo } from './HexIntegratedLogo';
-export { HexIsoLogo } from './HexIsoLogo';
-
+export { HexIntegratedLogo } from './HexIntegratedLogo'
+export { HexIsoLogo } from './HexIsoLogo'

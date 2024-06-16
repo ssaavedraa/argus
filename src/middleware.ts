@@ -1,5 +1,10 @@
 import { auth } from '@hex-auth'
-import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } from '@hex-routes'
+import {
+  DEFAULT_LOGIN_REDIRECT,
+  apiAuthPrefix,
+  authRoutes,
+  publicRoutes,
+} from '@hex-routes'
 
 export default auth((req) => {
   const { nextUrl } = req
@@ -30,4 +35,4 @@ export default auth((req) => {
 
 export const config = {
   matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
-};
+}

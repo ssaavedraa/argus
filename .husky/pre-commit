@@ -1,0 +1,4 @@
+npx lint-staged
+npm run type-check
+
+exit 1

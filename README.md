@@ -4,14 +4,15 @@
 
 ### Key Features:
 
-  - **Multi-Data Monitoring**: Argus enables users to monitor multiple data sources and metrics in real-time, providing a comprehensive view of performance and trends.
-  - **Advanced Visualization**: Utilizes Next.js capabilities for advanced data visualization, offering interactive charts, graphs, and dashboards that enhance data understanding.
-  - **Real-time Updates**: Ensures timely updates and refresh of data, keeping users informed with the latest insights and metrics.
-  - **Customizable Dashboards**: Allows users to create personalized dashboards tailored to their specific needs and preferences, enhancing usability and efficiency.
-  - **Integration Ready**: Supports seamless integration with various data sources and APIs, facilitating easy data aggregation and analysis.
-  - **Usage**: Argus serves as a robust platform for businesses to monitor and analyze their data effectively, leveraging Next.js’s capabilities for intuitive and insightful data visualization.
+- **Multi-Data Monitoring**: Argus enables users to monitor multiple data sources and metrics in real-time, providing a comprehensive view of performance and trends.
+- **Advanced Visualization**: Utilizes Next.js capabilities for advanced data visualization, offering interactive charts, graphs, and dashboards that enhance data understanding.
+- **Real-time Updates**: Ensures timely updates and refresh of data, keeping users informed with the latest insights and metrics.
+- **Customizable Dashboards**: Allows users to create personalized dashboards tailored to their specific needs and preferences, enhancing usability and efficiency.
+- **Integration Ready**: Supports seamless integration with various data sources and APIs, facilitating easy data aggregation and analysis.
+- **Usage**: Argus serves as a robust platform for businesses to monitor and analyze their data effectively, leveraging Next.js’s capabilities for intuitive and insightful data visualization.
 
 Dependencies: Built on Next.js framework, Argus leverages its efficient rendering, server-side rendering capabilities, and rich ecosystem for developing scalable and performant dashboards.
+
 ## Getting Started
 
 First, run the development server:

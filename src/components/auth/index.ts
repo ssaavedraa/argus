@@ -1,3 +1,2 @@
-export { AuthFormFooter } from './AuthFormFooter';
-export { AuthFormHeader } from './AuthFormHeader';
-
+export { AuthFormFooter } from './AuthFormFooter'
+export { AuthFormHeader } from './AuthFormHeader'

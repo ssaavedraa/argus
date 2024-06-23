@@ -1,1 +1,1 @@
-export { LoginValidationSchema } from './loginValidationSchema';
+export { LoginValidationSchema } from './loginValidationSchema'

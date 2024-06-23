@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useState
-} from 'react'
+import { ReactNode, createContext, useContext, useState } from 'react'
 import { ZodError, ZodTypeAny } from 'zod'
 
 import { FormField } from './FormField'
@@ -54,7 +49,7 @@ export const FormProvider = <T extends object>(props: FormProviderProps) => {
 
   const validateField = (name: keyof T, value: T[keyof T]) => {
     try {
-      validationSchema.parse({ [name]: value})
+      validationSchema.parse({ [name]: value })
 
       setValidationErrors((ve) => ({
         ...ve,
@@ -76,7 +71,7 @@ export const FormProvider = <T extends object>(props: FormProviderProps) => {
       value={{
         handleChange,
         validationErrors,
-        isPending
+        isPending,
       }}
     >
       {children}

@@ -18,12 +18,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -41,14 +35,85 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
 # Code standards
 
-- Every react functional component should use arrow function syntax
-- Pages and layout should be exported as default, ui components should be exported as a const
-- Pages subfolder should follow the same file structure as app router
+- React Functional Components: Should use arrow function syntax.
+
+```jsx
+// Good example
+const MyComponent = () => {
+  return (
+    <div>
+      <h1>Hello World!</h1>
+    </div>
+  )
+}
+```
+
+- Exports: Pages and layout components should be exported as default, while UI components should be exported as constants.
+
+```jsx
+// Good example for pages and layout components
+const HomePage = () => {
+  return (
+    <div>
+      <h1>Welcome to the Homepage</h1>
+    </div>
+  )
+}
+
+export default HomePage
+```
+
+```jsx
+// Good example for UI components
+export const Button = ({ onClick, children }) => {
+  return <button onClick={onClick}>{children}</button>
+}
+```
+
+- File Structure: Pages subfolders should follow the same structure as the app router. For example, if your app router structure is:
+
+```bash
+/pages
+  /about
+    index.js
+  /dashboard
+    index.js
+```
+
+# Commit Message Guidelines
+
+## Format
+
+A correct commit message should follow the conventional commits specification, consisting of a header and an optional body:
+
+### Header
+
+The header includes three main parts:
+
+- **`<type>`**: Describes the kind of change being made. Common types include:
+
+  - `feat`: A new feature
+  - `fix`: A bug fix
+  - `docs`: Documentation changes
+  - `style`: Changes that do not affect the meaning of the code
+  - `refactor`: Code refactorings
+  - `test`: Adding or updating tests
+  - `chore`: Maintenance tasks, build changes, etc.
+
+- **`<scope>`** (optional): Specifies the scope of the change. It can be anything relevant to the project.
+
+- **`<subject>`**: A succinct description of the change. Use the imperative tense (e.g., "add", "fix", "update") and keep it concise (50 characters or less is recommended).
+
+Example:
+`feat(auth): add JWT token expiration handling`
+
+## Guidelines
+
+- **Be Clear and Concise**: Describe the change clearly and succinctly.
+- **Use Imperative Mood**: Start the `<subject>` with a verb in the imperative mood.
+- **Separate Header and Body**: Use the body for additional context if needed.
+- **Follow Project Conventions**: Adhere to any specific commit message guidelines established by the team.
+
+By following these guidelines, we can ensure that our commit messages are informative, consistent, and contribute to a clear and meaningful Git history for our project.

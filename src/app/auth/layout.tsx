@@ -1,3 +1,7 @@
+import { Card } from 'components/ui/shared/card/Card'
+import { CardContent } from 'components/ui/shared/card/CardContent'
+import { CardFooter } from 'components/ui/shared/card/CardFooter'
+import { CardHeader } from 'components/ui/shared/card/CardHeader'
 import { ReactNode } from 'react'
 
 import { AuthFormFooter, AuthFormHeader } from '@hex-components/auth'
@@ -8,17 +12,22 @@ interface AuthLayoutProps {
 
 const AuthLayout = (props: AuthLayoutProps) => {
   return (
-    // TODO: Create Card component
     <div className='h-screen w-screen flex items-center lg:max-w-[1280px] mx-auto'>
-      <div className='bg-purple-700 bg-opacity-30 lg:w-1/3 mx-auto rounded-2xl p-8'>
-        <header>
-          <AuthFormHeader />
-        </header>
-        <main>{props.children}</main>
-        <footer>
-          <AuthFormFooter />
-        </footer>
-      </div>
+      <Card>
+        <CardHeader>
+          <header>
+            <AuthFormHeader />
+          </header>
+        </CardHeader>
+        <CardContent>
+          <main>{props.children}</main>
+        </CardContent>
+        <CardFooter>
+          <footer>
+            <AuthFormFooter />
+          </footer>
+        </CardFooter>
+      </Card>
     </div>
   )
 }

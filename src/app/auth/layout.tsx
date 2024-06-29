@@ -2,7 +2,7 @@ import { Card } from 'components/ui/shared/card/Card'
 import { CardContent } from 'components/ui/shared/card/CardContent'
 import { CardFooter } from 'components/ui/shared/card/CardFooter'
 import { CardHeader } from 'components/ui/shared/card/CardHeader'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 import { AuthFormFooter, AuthFormHeader } from '@hex-components/auth'
 
@@ -20,7 +20,9 @@ const AuthLayout = (props: AuthLayoutProps) => {
           </header>
         </CardHeader>
         <CardContent>
-          <main>{props.children}</main>
+          <Suspense>
+            <main>{props.children}</main>
+          </Suspense>
         </CardContent>
         <CardFooter>
           <footer>

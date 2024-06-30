@@ -9,7 +9,7 @@ declare module 'next-auth' {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    token: string
+    accessToken: string
   }
   /**
    * The shape of the account object returned in the OAuth providers' `account` callback,
@@ -22,7 +22,7 @@ declare module 'next-auth' {
    */
   interface Session {
     user: {
-      token: string
+      accessToken: string
     } & DefaultSession['user']
   }
 }
@@ -32,6 +32,6 @@ declare module 'next-auth/jwt' {
   interface JWT {
     /** OpenID ID Token */
     idToken?: string
-    token: string
+    accessToken: string
   }
 }

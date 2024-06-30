@@ -1,11 +1,11 @@
-import { auth, signOut } from '@hex-auth'
-import { HexIsoLogo } from '@hex-icons'
-import { publicRoutes } from '@hex-routes'
+import { ReactNode } from 'react'
 
-const DashboardPage = async () => {
+import { auth } from '@hex-auth'
+import { HexIsoLogo } from '@hex-icons'
+
+const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth()
 
-  // TODO: COMPONENTIZE HEADER
   return (
     <div className='h-screen max-h-screen w-screen flex flex-col'>
       <header className='p-4 pb-0 flex flex-row items-center justify-between'>
@@ -23,22 +23,11 @@ const DashboardPage = async () => {
         </div>
       </header>
       <main className='border border-hex-300 rounded-lg p-4 m-4 h-full'>
-        DashboardPage
         <pre>{JSON.stringify(session, null, 2)}</pre>
-        <form
-          action={async () => {
-            'use server'
-
-            await signOut({
-              redirectTo: publicRoutes[0],
-            })
-          }}
-        >
-          <button>Sign Out</button>
-        </form>
+        {children}
       </main>
     </div>
   )
 }
 
-export default DashboardPage
+export default DashboardLayout

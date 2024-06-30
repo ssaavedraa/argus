@@ -1,7 +1,9 @@
-import { Card } from 'components/ui/shared/card/Card'
-import { CardContent } from 'components/ui/shared/card/CardContent'
-import { CardFooter } from 'components/ui/shared/card/CardFooter'
-import { CardHeader } from 'components/ui/shared/card/CardHeader'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from 'components/ui/shared/card'
 import { ReactNode, Suspense } from 'react'
 
 import { AuthFormFooter, AuthFormHeader } from '@hex-components/auth'

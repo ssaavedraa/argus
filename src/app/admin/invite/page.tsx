@@ -1,8 +1,6 @@
 'use client'
 
-import { Card } from 'components/ui/shared/card/Card'
-import { CardContent } from 'components/ui/shared/card/CardContent'
-import { CardHeader } from 'components/ui/shared/card/CardHeader'
+import { Card, CardContent, CardHeader } from 'components/ui/shared/card'
 import { Suspense } from 'react'
 import { object } from 'zod'
 

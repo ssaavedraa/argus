@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import classNames from 'classnames'
-import { FC, PropsWithChildren } from 'react'
+import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
 
 type ButtonVariant =
   | 'primary'
@@ -12,7 +12,7 @@ type ButtonVariant =
   | 'icon'
 type ButtonSize = 'small' | 'medium' | 'large'
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   icon?: string
@@ -44,6 +44,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   children,
   icon,
   size = 'medium',
+  ...props
 }) => {
   const roundedStyles = variant === 'icon' ? 'rounded-full' : 'rounded-lg'
 
@@ -55,6 +56,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
         variantStyles[variant],
         roundedStyles,
       )}
+      {...props}
     >
       {icon && <Icon className='mr-2' icon={icon} />}
       {children}

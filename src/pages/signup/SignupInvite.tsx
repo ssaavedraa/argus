@@ -98,7 +98,8 @@ const SignupInvite: FC<SignupInviteProps> = ({ inviteId }) => {
   }
 
   const submitForm = async () => {
-    if (steps[step].formAction) {
+    const currentStep = steps[step]
+    if (currentStep?.formAction) {
       let formActionPayload: User | Company
 
       if (step === 1 || step === 2) {
@@ -109,7 +110,7 @@ const SignupInvite: FC<SignupInviteProps> = ({ inviteId }) => {
         return
       }
 
-      await steps[step].formAction(formActionPayload as any)
+      await currentStep?.formAction(formActionPayload as any)
     }
   }
 

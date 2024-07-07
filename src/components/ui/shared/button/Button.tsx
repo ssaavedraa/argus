@@ -19,7 +19,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseStyles =
-  'inline-flex items-center justify-center focus:outline-none transition-all duration-300'
+  'inline-flex items-center justify-center focus:outline-none transition-all duration-300 disabled:opacity-50 disabled:shadow-none'
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary: 'bg-hex-300 hover:bg-hex-400 text-primary shadow-neumorphic',

@@ -2,7 +2,8 @@ import { InputHTMLAttributes, forwardRef } from 'react'
 
 import { useFormContext } from './FormProvider'
 
-interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface FormInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {}
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   (props, ref) => {

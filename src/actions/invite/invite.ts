@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 
 import { auth } from '@hex-auth'
 
+const apiUrl = process.env.API_DOMAIN
+
 export const invite = async (formData: FormData) => {
   const session = await auth()
 
@@ -15,10 +17,9 @@ export const invite = async (formData: FormData) => {
     email: formData.get('email'),
   }
 
-  // TODO: validate fields adn throw errors
+  // TODO: validate fields and throw errors
   let inviteError: string | null = null
   try {
-    const apiUrl = process.env.API_DOMAIN
     await fetch(`${apiUrl}/api/users?method=hex-invite`, {
       method: 'POST',
       body: JSON.stringify(invite),

@@ -5,5 +5,9 @@ interface CardContentProps {}
 export const CardContent: FC<PropsWithChildren<CardContentProps>> = ({
   children,
 }) => {
-  return <div>{children}</div>
+  return (
+    <div className='max-h-[80vh] overflow-y-auto overflow-x-hidden px-2'>
+      {children}
+    </div>
+  )
 }

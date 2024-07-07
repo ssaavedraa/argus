@@ -2,16 +2,16 @@
 
 import { useSearchParams } from 'next/navigation'
 import { ReactNode, useState, useTransition } from 'react'
-import { ZodTypeAny } from 'zod'
+import { ZodObject } from 'zod'
 
 import { FormProvider, FormState } from './FormProvider'
 
 interface FormProps<T extends FormState> {
   children: ReactNode
   initialValues: T
-  validationSchema: ZodTypeAny
+  validationSchema: ZodObject<any, any>
   // eslint-disable-next-line no-unused-vars
-  action: (formData: FormData) => Promise<{ error: string }>
+  action?: (formData: FormData) => Promise<any>
 }
 
 export const Form = <T extends FormState>(props: FormProps<T>) => {
@@ -24,14 +24,16 @@ export const Form = <T extends FormState>(props: FormProps<T>) => {
 
   const [isPending, startTransition] = useTransition()
 
-  const handleLogin = (formData: FormData) => {
-    startTransition(() => {
-      action(formData)
-        .then((data) => {
-          setFormError(data?.error || null)
-        })
-        .catch((error) => console.error({ error }))
-    })
+  const handleSubmit = (formData: FormData) => {
+    if (action) {
+      startTransition(() => {
+        action(formData)
+          .then((data) => {
+            setFormError(data?.error || null)
+          })
+          .catch((error) => console.error({ error }))
+      })
+    }
   }
 
   return (
@@ -42,7 +44,7 @@ export const Form = <T extends FormState>(props: FormProps<T>) => {
       )}
       <form
         className='flex flex-col gap-3 my-4 w-full mx-auto'
-        action={handleLogin}
+        action={handleSubmit}
       >
         {children}
       </form>

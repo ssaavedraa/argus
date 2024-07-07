@@ -49,9 +49,10 @@ export const FormAddress = (props: FormAddressProps) => {
 
     const loadScript = () => {
       // TODO: use env variable for APIKEY
+      const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY
       if (!window.google || !window.google.maps) {
         const script = document.createElement('script')
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCe7lEpFGGN-SMhvbaj07lHGtVy-dR-xlo&libraries=places`
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&libraries=places`
         script.async = true
         script.defer = true
         script.onload = initializeAutocomplete // Call initializeAutocomplete once script is loaded

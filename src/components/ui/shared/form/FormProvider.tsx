@@ -1,7 +1,7 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
-import { ZodError, ZodTypeAny } from 'zod'
+import { ReactNode, createContext, useContext } from 'react'
+import { ZodObject } from 'zod'
 
 import { FormField } from './FormField'
 
@@ -9,19 +9,15 @@ export interface FormState {
   [key: string]: any
 }
 
-interface FormContextProps<T extends FormState> {
-  validationErrors: Partial<Record<keyof T, T[keyof T]>>
+interface FormContextProps {
   isPending: boolean
-  // eslint-disable-next-line no-unused-vars
-  handleChange: (name: any, value: T[keyof T]) => void
+  validationSchema: ZodObject<any, any>
 }
 
-const FormContext = createContext<FormContextProps<any> | null>(
-  {} as FormContextProps<any>,
-)
+const FormContext = createContext<FormContextProps>({} as FormContextProps)
 
-export const useFormContext = <T extends FormState>(): FormContextProps<T> => {
-  const context = useContext(FormContext) as FormContextProps<T>
+export const useFormContext = () => {
+  const context = useContext(FormContext)
 
   if (!context) {
     throw new Error('useFormContext must be used within a FormProvider')
@@ -32,45 +28,17 @@ export const useFormContext = <T extends FormState>(): FormContextProps<T> => {
 
 interface FormProviderProps {
   children: ReactNode
-  validationSchema: ZodTypeAny
+  validationSchema: ZodObject<any, any>
   isPending: boolean
 }
 
-export const FormProvider = <T extends object>(props: FormProviderProps) => {
+export const FormProvider = (props: FormProviderProps) => {
   const { validationSchema, children, isPending } = props
-
-  const [validationErrors, setValidationErrors] = useState<
-    Partial<Record<keyof T, T[keyof T]>>
-  >({})
-
-  const handleChange = (name: keyof T, value: T[keyof T]) => {
-    validateField(name, value)
-  }
-
-  const validateField = (name: keyof T, value: T[keyof T]) => {
-    try {
-      validationSchema.parse({ [name]: value })
-
-      setValidationErrors((ve) => ({
-        ...ve,
-        [name]: null,
-      }))
-    } catch (error: any) {
-      if (error instanceof ZodError) {
-        const message = error.errors[0].message
-        setValidationErrors((ve) => ({
-          ...ve,
-          [name]: message,
-        }))
-      }
-    }
-  }
 
   return (
     <FormContext.Provider
       value={{
-        handleChange,
-        validationErrors,
+        validationSchema,
         isPending,
       }}
     >

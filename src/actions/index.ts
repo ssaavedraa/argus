@@ -1,2 +1,5 @@
-export { invite } from './invite'
+export { invite } from './invite/invite'
+export { getInviteDetails } from './invite/inviteDetails'
+export { updateInvitedUser } from './invite/updateInvitedUser'
+export { updateInvitedUserCompany } from './invite/updateInvitedUserCompany'
 export { login } from './login'

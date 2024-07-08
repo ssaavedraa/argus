@@ -23,14 +23,18 @@ const config: Config = {
         '7xl': '4.5rem', // 72px
       },
       textColor: {
-        primary: '#FEE9FF',
+        primary: '#0D0830',
+        secondary: '#331183',
+        accent: '#cc69f8',
         danger: '#F31260',
         success: '#17C964',
-        accent: '#cc69f8',
-        'primary-foreground': '#e28efb',
+        foreground: '#FEE9FF',
       },
       colors: {
-        accent: '#cc69f8',
+        background: {
+          start: '#0D0830',
+          end: '#331183',
+        },
         hex: {
           50: '#feebff',
           100: '#fbd4ff',
@@ -53,6 +57,9 @@ const config: Config = {
           950: '#140b44',
           1000: '#0d0830',
         },
+      },
+      boxShadow: {
+        neumorphic: '8px 8px 15px #feebff4a inset, 8px 8px 15px #00000028;',
       },
     },
   },

@@ -14,7 +14,7 @@ interface AuthLayoutProps {
 
 const AuthLayout = (props: AuthLayoutProps) => {
   return (
-    <div className='h-screen w-screen flex items-center lg:max-w-[1280px] mx-auto'>
+    <div className='h-screen w-screen flex items-center justify-center lg:max-w-[1280px] mx-auto'>
       <Card>
         <CardHeader>
           <header>

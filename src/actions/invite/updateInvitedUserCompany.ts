@@ -1,16 +1,22 @@
 'use server'
 
-import { Company } from '@hex-pages/signup/SignupInvite'
-
 const apiUrl = process.env.API_DOMAIN
 
-export const updateInvitedUserCompany = async (payload: Company) => {
+export const updateInvitedUserCompany = async (formData: FormData) => {
   try {
-    await new Promise<void>((resolve) => setTimeout(resolve, 1000))
+    const company = {
+      name: formData.get('name'),
+      address: formData.get('address'),
+      domain: formData.get('domain'),
+      nit: formData.get('nit'),
+      phoneNumber: formData.get('phoneNumber'),
+      id: Number(formData.get('id')),
+    }
+
     const response = await fetch(`${apiUrl}/api/companies`, {
       method: 'PUT',
       credentials: 'include',
-      body: JSON.stringify(payload),
+      body: JSON.stringify(company),
     })
 
     if (!response.ok) {
@@ -18,7 +24,6 @@ export const updateInvitedUserCompany = async (payload: Company) => {
       throw new Error(errorResponse.message)
     }
   } catch (error) {
-    console.error('Error in updateInvitedUserCompany:', error)
     throw error
   }
 }

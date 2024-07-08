@@ -104,6 +104,7 @@ export const FormAddress = (props: FormAddressProps) => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputRef])
 
   return (

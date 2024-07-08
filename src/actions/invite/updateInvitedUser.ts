@@ -1,16 +1,23 @@
 'use server'
 
-import { User } from '@hex-pages/signup/SignupInvite'
-
 const apiUrl = process.env.API_DOMAIN
 
-export const updateInvitedUser = async (payload: User) => {
+export const updateInvitedUser = async (formData: FormData) => {
   try {
-    await new Promise<void>((resolve) => setTimeout(resolve, 1000))
+    const user = {
+      email: formData.get('email'),
+      address: formData.get('address'),
+      companyRole: formData.get('companyRole'),
+      fullname: formData.get('fullname'),
+      password: formData.get('password'),
+      phoneNumber: formData.get('phoneNumber'),
+      id: Number(formData.get('id')),
+    }
+
     const response = await fetch(`${apiUrl}/api/users`, {
       method: 'PUT',
       credentials: 'include',
-      body: JSON.stringify(payload),
+      body: JSON.stringify(user),
     })
 
     if (!response.ok) {
@@ -18,7 +25,6 @@ export const updateInvitedUser = async (payload: User) => {
       throw new Error(errorResponse.message)
     }
   } catch (error) {
-    console.error('Error in updateInvitedUser:', error)
     throw error
   }
 }

@@ -1,17 +1,29 @@
-'use client'
-
-import { useSearchParams } from 'next/navigation'
+import {
+  getInviteDetails,
+  updateInvitedUser,
+  updateInvitedUserCompany,
+} from '@hex-actions'
 
 import SignupInvite from '@hex-pages/signup/SignupInvite'
 
-const AuthSignup = () => {
-  const searchParams = useSearchParams()
+const AuthSignup = async (props: any) => {
+  const { method, 'invite-id': inviteId } = props.searchParams
 
-  const signupMethod = searchParams?.get('method')
-  const inviteId = searchParams?.get('invite-id')
+  const inviteDetails = await getInviteDetails(inviteId)
+  const { company: companyDetails, ...userDetails } = inviteDetails
 
-  if (signupMethod === 'invite' && inviteId) {
-    return <SignupInvite inviteId={inviteId} />
+  if (method === 'invite' && inviteId) {
+    const actions = {
+      updateInvitedUser,
+      updateInvitedUserCompany,
+    }
+    return (
+      <SignupInvite
+        actions={actions}
+        userDetails={userDetails}
+        companyDetails={companyDetails}
+      />
+    )
   }
 
   return <div>SignupPage</div>

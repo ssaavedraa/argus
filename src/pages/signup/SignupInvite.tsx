@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import {
   ChangeEvent,
   Dispatch,
@@ -7,17 +8,10 @@ import {
   ReactElement,
   SetStateAction,
   createContext,
-  useEffect,
   useState,
-  useTransition,
 } from 'react'
-import { ZodTypeAny } from 'zod'
-
-import {
-  getInviteDetails,
-  updateInvitedUser,
-  updateInvitedUserCompany,
-} from '@hex-actions'
+import { NewCompanyDetailsValidationSchema } from 'utils/validation-schemas/newCompanyDetailsValidationSchema'
+import { ZodObject, ZodTypeAny } from 'zod'
 
 import {
   NewCompanyDetails,
@@ -26,12 +20,22 @@ import {
   NewUserWelcome,
   NewUserWrapUp,
 } from '@hex-components/onboarding/newUser'
-import { Alert } from '@hex-shared-components/altert'
 import { Button } from '@hex-shared-components/button'
-import { Spinner } from '@hex-shared-components/spinner'
+import { Form, FormButton } from '@hex-shared-components/form'
+import {
+  NewUserCredentialsValidationSchema,
+  NewUserDetailsValidationSchema,
+} from '@hex-utils/validation-schemas'
 
 interface SignupInviteProps {
-  inviteId: string
+  userDetails: User
+  companyDetails: Company
+  actions: {
+    // eslint-disable-next-line no-unused-vars
+    updateInvitedUser: (...args: any) => Promise<void>
+    // eslint-disable-next-line no-unused-vars
+    updateInvitedUserCompany: (...args: any) => Promise<void>
+  }
 }
 
 export interface User {
@@ -42,6 +46,7 @@ export interface User {
   phoneNumber: string
   password: string
   passwordConfirmation: string
+  id: number
 }
 
 export interface Company {
@@ -50,6 +55,7 @@ export interface Company {
   name: string
   nit: string
   phoneNumber: string
+  id: number
 }
 
 interface Step {
@@ -79,59 +85,86 @@ export const NewUserContext = createContext<NewUserContextProps>(
   {} as NewUserContextProps,
 )
 
-const SignupInvite: FC<SignupInviteProps> = ({ inviteId }) => {
-  const [userDetails, setUserDetails] = useState<User>({} as User)
-  const [companyDetails, setCompanyDetails] = useState<Company>({} as Company)
+const SignupInvite: FC<SignupInviteProps> = ({
+  actions,
+  userDetails: userDetailsInitialState,
+  companyDetails: companyDetailsInitialState,
+}) => {
+  const [userDetails, setUserDetails] = useState<User>(userDetailsInitialState)
+  const [companyDetails, setCompanyDetails] = useState<Company>(
+    companyDetailsInitialState,
+  )
   const [step, setStep] = useState(0)
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
-  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const delta = step - (step - 1)
 
-  const fetchInitialState = async () => {
-    const { company: companyDetails, ...userDetails } =
-      await getInviteDetails(inviteId)
-    setUserDetails(userDetails)
-    setCompanyDetails(companyDetails)
-  }
+  const steps = [
+    {
+      id: 0,
+      view: <NewUserWelcome />,
+    },
+    {
+      id: 1,
+      view: <NewUserCredentials />,
+      formAction: async (formData: FormData) => {
+        formData.append('id', `${userDetails.id}`)
+        try {
+          await actions?.updateInvitedUser(formData)
+        } catch (error) {
+          throw error
+        }
+      },
+      validationSchema: NewUserCredentialsValidationSchema,
+    },
+    {
+      id: 2,
+      view: <NewUserDetails />,
+      formAction: async (formData: FormData) => {
+        formData.append('id', `${userDetails.id}`)
+        try {
+          await actions?.updateInvitedUser(formData)
+        } catch (error) {
+          throw error
+        }
+      },
+      validationSchema: NewUserDetailsValidationSchema,
+    },
+    {
+      id: 3,
+      view: <NewCompanyDetails />,
+      formAction: async (formData: FormData) => {
+        formData.append('id', `${companyDetails.id}`)
+        try {
+          await actions?.updateInvitedUserCompany(formData)
+        } catch (error) {
+          throw error
+        }
+      },
+      valdiationSchema: NewCompanyDetailsValidationSchema,
+    },
+    {
+      id: 4,
+      view: <NewUserWrapUp />,
+    },
+  ]
 
-  const submitForm = async () => {
-    const currentStep = steps[step]
-    if (currentStep?.formAction) {
-      let formActionPayload: User | Company
-
-      if (step === 1 || step === 2) {
-        formActionPayload = userDetails
-      } else if (step === 3) {
-        formActionPayload = companyDetails
-      } else {
-        return
-      }
-
-      await currentStep?.formAction(formActionPayload as any)
-    }
-  }
+  const isFirstStep = step === 0
+  const isLastStep = step === steps.length - 1
 
   const nextStep = () => {
-    startTransition(async () => {
-      try {
-        await submitForm()
+    if (isLastStep) {
+      router.push('/auth/login')
+    }
 
-        setStep((step) => {
-          if (step < steps.length - 1) {
-            return step + 1
-          }
-
-          return step
-        })
-
-        setError(null)
-        setIsNextButtonDisabled(true)
-      } catch (error: any) {
-        setError(error.message)
+    setStep((step) => {
+      if (step < steps.length - 1) {
+        return step + 1
       }
+
+      return step
     })
   }
 
@@ -154,42 +187,6 @@ const SignupInvite: FC<SignupInviteProps> = ({ inviteId }) => {
     }))
   }
 
-  // TODO: form actions
-  const steps = [
-    {
-      id: 0,
-      view: <NewUserWelcome />,
-    },
-    {
-      id: 1,
-      view: <NewUserCredentials />,
-      formAction: updateInvitedUser,
-    },
-    {
-      id: 2,
-      view: <NewUserDetails />,
-      formAction: updateInvitedUser,
-    },
-    {
-      id: 3,
-      view: <NewCompanyDetails />,
-      // eslint-disable-next-line no-unused-vars
-      formAction: updateInvitedUserCompany,
-    },
-    {
-      id: 4,
-      view: <NewUserWrapUp />,
-    },
-  ]
-
-  const isFirstStep = step === 0
-  const isLastStep = step === steps.length - 1
-
-  useEffect(() => {
-    fetchInitialState()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <NewUserContext.Provider
       value={{
@@ -207,24 +204,30 @@ const SignupInvite: FC<SignupInviteProps> = ({ inviteId }) => {
       }}
     >
       <div className='min-w-full snap-start flex flex-col items-center text-center'>
-        {error && <Alert message={error} variant='error' />}
-        {steps[step].view}
-        {isFirstStep ? (
-          <Button onClick={nextStep}>Continue signing up!</Button>
-        ) : (
-          <div className='flex flex-row flex-nowrap justify-between w-full'>
-            <Button variant='text' onClick={prevStep}>
-              Back
+        <Form
+          initialValues={userDetails}
+          action={steps[step].formAction as any}
+          validationSchema={
+            steps[step]!.validationSchema as ZodObject<any, any>
+          }
+          onTransitionEnd={nextStep}
+        >
+          {steps[step].view}
+          {isFirstStep || isLastStep ? (
+            <Button onClick={nextStep}>
+              {isFirstStep ? 'Continue signing up!' : 'Finish'}
             </Button>
-            <Button
-              disabled={isNextButtonDisabled || isPending}
-              onClick={nextStep}
-            >
-              {isPending && <Spinner />}
-              {isLastStep ? 'Finish' : 'Next'}
-            </Button>
-          </div>
-        )}
+          ) : (
+            <div className='flex flex-row flex-nowrap justify-between w-full'>
+              <Button variant='text' type='button' onClick={prevStep}>
+                Back
+              </Button>
+              <FormButton disabled={isNextButtonDisabled}>
+                {isLastStep ? 'Finish' : 'Next'}
+              </FormButton>
+            </div>
+          )}
+        </Form>
       </div>
     </NewUserContext.Provider>
   )

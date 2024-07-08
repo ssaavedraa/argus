@@ -2,12 +2,7 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, useContext, useEffect } from 'react'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
-import {
-  Form,
-  FormAddress,
-  FormField,
-  FormInput,
-} from '@hex-shared-components/form'
+import { FormAddress, FormField, FormInput } from '@hex-shared-components/form'
 import { NewUserDetailsValidationSchema } from '@hex-utils/validation-schemas'
 
 export const NewUserDetails = () => {
@@ -36,48 +31,43 @@ export const NewUserDetails = () => {
 
   return (
     <motion.div
-      className='w-full'
+      className='w-full flex flex-col gap-3'
       initial={{ x: delta > 0 ? '50%' : '-50%', opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
-      <Form
-        initialValues={userDetails}
-        validationSchema={NewUserDetailsValidationSchema}
+      <FormField
+        label='full Name'
+        name='fullname'
+        required
+        onChange={handleChange}
       >
-        <FormField
-          label='full Name'
-          name='fullname'
-          required
-          onChange={handleChange}
-        >
-          <FormInput defaultValue={userDetails.fullname} />
-        </FormField>
-        <FormField
-          label='Company Role'
-          name='companyRole'
-          required
-          onChange={handleChange}
-        >
-          <FormInput defaultValue={userDetails.companyRole} />
-        </FormField>
-        <FormField
-          label='Phone Number'
-          name='phoneNumber'
-          required
-          onChange={handleChange}
-        >
-          <FormInput defaultValue={userDetails.phoneNumber} />
-        </FormField>
-        <FormAddress
-          label='Address'
-          name='address'
-          required
-          customHandleChange={handleChange}
-          defaultValue={userDetails.address}
-          autoComplete='off'
-        />
-      </Form>
+        <FormInput defaultValue={userDetails.fullname} />
+      </FormField>
+      <FormField
+        label='Company Role'
+        name='companyRole'
+        required
+        onChange={handleChange}
+      >
+        <FormInput defaultValue={userDetails.companyRole} />
+      </FormField>
+      <FormField
+        label='Phone Number'
+        name='phoneNumber'
+        required
+        onChange={handleChange}
+      >
+        <FormInput defaultValue={userDetails.phoneNumber} />
+      </FormField>
+      <FormAddress
+        label='Address'
+        name='address'
+        required
+        customHandleChange={handleChange}
+        defaultValue={userDetails.address}
+        autoComplete='off'
+      />
     </motion.div>
   )
 }

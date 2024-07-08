@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
-import { Form, FormField, FormInput } from '@hex-shared-components/form'
+import { FormField, FormInput } from '@hex-shared-components/form'
 import {
   NewUserCredentialsValidationSchema,
   PasswordValidationSchema,
@@ -110,74 +110,69 @@ export const NewUserCredentials = () => {
   }, [userDetails])
 
   return (
-    <Form
-      initialValues={userDetails}
-      validationSchema={NewUserCredentialsValidationSchema}
+    <motion.div
+      className='w-full flex flex-col gap-3'
+      initial={{ x: delta > 0 ? '50%' : '-50%', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
-      <motion.div
-        className='w-full flex flex-col gap-3'
-        initial={{ x: delta > 0 ? '50%' : '-50%', opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+      <FormField
+        label='email'
+        name='email'
+        required
+        onChange={handleChange}
+        showError={false}
       >
-        <FormField
-          label='email'
-          name='email'
-          required
-          onChange={handleChange}
-          showError={false}
-        >
-          <FormInput
-            autoComplete='email'
-            type='email'
-            defaultValue={userDetails.email}
-          />
-        </FormField>
-        <FormField
-          label='password'
-          name='password'
-          required
-          onChange={handlePasswordChange}
-          showError={false}
-        >
-          <FormInput
-            type='password'
-            autoComplete='new-password'
-            defaultValue={userDetails.password}
-          />
-        </FormField>
-        <FormField
-          label='Confirm Password'
-          name='passwordConfirmation'
-          required
-          onChange={handlePasswordChange}
-          showError={false}
-        >
-          <FormInput
-            type='password'
-            autoComplete='new-password'
-            defaultValue={userDetails.passwordConfirmation}
-          />
-        </FormField>
-        <div className='bg-hex-950 mt-1 p-4 rounded-lg'>
-          <span className='pb-2 block'>Password requirements</span>
-          <ul className='font-light text-sm flex flex-col gap-1'>
-            {passwordRequirements.map(({ description, isValid }, index) => (
-              <li
-                className={`flex flex-row flex-nowrap text-nowrap gap-2 items-center drop-shadow-lg ${isValid ? 'text-success' : 'text-danger'}`}
-                key={index}
-              >
-                {isValid ? (
-                  <Icon icon='carbon:checkmark-outline' fontSize={20} />
-                ) : (
-                  <Icon icon='carbon:close-outline' fontSize={20} />
-                )}
-                {description}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
-    </Form>
+        <FormInput
+          autoComplete='email'
+          type='email'
+          defaultValue={userDetails.email}
+        />
+      </FormField>
+      <FormField
+        label='password'
+        name='password'
+        required
+        onChange={handlePasswordChange}
+        showError={false}
+      >
+        <FormInput
+          type='password'
+          autoComplete='new-password'
+          defaultValue={userDetails.password}
+        />
+      </FormField>
+      <FormField
+        label='Confirm Password'
+        name='passwordConfirmation'
+        required
+        onChange={handlePasswordChange}
+        showError={false}
+      >
+        <FormInput
+          type='password'
+          autoComplete='new-password'
+          defaultValue={userDetails.passwordConfirmation}
+        />
+      </FormField>
+      <div className='bg-hex-950 mt-1 p-4 rounded-lg'>
+        <span className='pb-2 block'>Password requirements</span>
+        <ul className='font-light text-sm flex flex-col gap-1'>
+          {passwordRequirements.map(({ description, isValid }, index) => (
+            <li
+              className={`flex flex-row flex-nowrap text-nowrap gap-2 items-center drop-shadow-lg ${isValid ? 'text-success' : 'text-danger'}`}
+              key={index}
+            >
+              {isValid ? (
+                <Icon icon='carbon:checkmark-outline' fontSize={20} />
+              ) : (
+                <Icon icon='carbon:close-outline' fontSize={20} />
+              )}
+              {description}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </motion.div>
   )
 }

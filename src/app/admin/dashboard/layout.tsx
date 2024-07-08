@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { ReactNode } from 'react'
 
 import { auth } from '@hex-auth'
@@ -16,6 +17,9 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
           <ul className='flex flex-row gap-2'>
             <li className='rounded-2xl px-4 py-1'>Products</li>
             <li className='rounded-2xl px-4 py-1'>Account</li>
+            <li className='rounded-2xl px-4 py-1'>
+              <Link href='/admin/invite'>Invite</Link>
+            </li>
           </ul>
         </div>
         <div>
@@ -23,7 +27,6 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
         </div>
       </header>
       <main className='border border-hex-300 rounded-lg p-4 m-4 h-full'>
-        <pre>{JSON.stringify(session, null, 2)}</pre>
         {children}
       </main>
     </div>

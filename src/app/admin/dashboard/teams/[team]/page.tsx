@@ -6,6 +6,13 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@hex-ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from '@hex-ui/table'
 
 interface TeamMember {
   id: number
@@ -17,6 +24,8 @@ interface TeamMember {
 
 const TeamPage = () => {
   const params = useParams()
+
+  const columns = ['Name', 'Role', 'Actions']
 
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
 
@@ -38,24 +47,12 @@ const TeamPage = () => {
   return (
     <div className='bg-hex-300 bg-opacity-30 rounded-lg h-full'>
       <div className='h-full overflow-y-auto relative'>
-        <table className='w-full rounded-md overflow-clip'>
-          <thead className='uppercase text-left sticky top-0 z-10 bg-hex-300'>
-            <tr>
-              <th scope='col' className='px-6 py-3 rounded-tl-lg'>
-                Name
-              </th>
-              <th scope='col' className='px-6 py-3'>
-                Role
-              </th>
-              <th scope='col' className='px-6 py-3 rounded-tr-lg'>
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {teamMembers?.map(({ id, name, teamName, role, email }) => (
-              <tr className='border-b border-hex-300 text-left' key={id}>
-                <th scope='row' className='px-6 py-4 whitespace-nowrap'>
+        <Table>
+          <TableHeader columns={columns} />
+          <TableBody>
+            {teamMembers.map(({ name, email, teamName, role }, index) => (
+              <TableRow key={index}>
+                <TableCell>
                   <div className='flex gap-2'>
                     {/* Avatar */}
                     <div className='h-12 aspect-square rounded-full bg-gray-600 flex justify-center items-center'>
@@ -72,18 +69,20 @@ const TeamPage = () => {
                       <p className='font-light text-foreground'>{email}</p>
                     </div>
                   </div>
-                </th>
-                <td className='px-6 py-4'>
+                </TableCell>
+                <TableCell>
                   <div className='flex flex-col'>
                     <p className='font-bold text-accent'>{teamName}</p>
                     <p className='font-light text-foreground'>{role}</p>
                   </div>
-                </td>
-                <td className='px-6 py-4 text-right'>Edit</td>
-              </tr>
+                </TableCell>
+                <TableCell>
+                  <p>Edit</p>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
         <div className='absolute p-4 m-4 bottom-0 right-0 aspect-square rounded-full flex items-center justify-center overflow-clip'>
           <Button
             variant='icon'

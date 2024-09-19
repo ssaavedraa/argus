@@ -1,0 +1,1 @@
+export { isValidElementOfType } from './isValidElementOfType'

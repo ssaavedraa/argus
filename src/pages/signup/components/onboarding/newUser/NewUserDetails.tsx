@@ -2,10 +2,10 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, useContext, useEffect } from 'react'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
-import { FormAddress, FormField, FormInput } from '@hex-shared-components/form'
+import { FormAddress, FormField, FormInput } from '@hex-ui/form'
 import { NewUserDetailsValidationSchema } from '@hex-utils/validation-schemas'
 
-export const NewUserDetails = () => {
+const NewUserDetails = () => {
   const { userDetails, setUserDetails, delta, setIsNextButtonDisabled } =
     useContext(NewUserContext)
 
@@ -42,7 +42,7 @@ export const NewUserDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput defaultValue={userDetails.fullname} />
+        <FormInput defaultValue={userDetails?.fullname} />
       </FormField>
       <FormField
         label='Company Role'
@@ -50,7 +50,7 @@ export const NewUserDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput defaultValue={userDetails.companyRole} />
+        <FormInput defaultValue={userDetails?.companyRole} />
       </FormField>
       <FormField
         label='Phone Number'
@@ -58,16 +58,18 @@ export const NewUserDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput defaultValue={userDetails.phoneNumber} />
+        <FormInput defaultValue={userDetails?.phoneNumber} />
       </FormField>
       <FormAddress
         label='Address'
         name='address'
         required
         customHandleChange={handleChange}
-        defaultValue={userDetails.address}
+        defaultValue={userDetails?.address}
         autoComplete='off'
       />
     </motion.div>
   )
 }
+
+export default NewUserDetails

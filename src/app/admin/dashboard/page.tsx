@@ -1,7 +1,7 @@
 import { signOut } from '@hex-auth'
 import { publicRoutes } from '@hex-routes'
 
-import { Button } from '@hex-shared-components/button'
+import { Button } from '@hex-ui/button'
 
 const DashboardPage = async () => {
   // TODO: COMPONENTIZE HEADER

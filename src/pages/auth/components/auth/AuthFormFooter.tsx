@@ -12,7 +12,7 @@ interface FooterProps {
   }
 }
 
-export const AuthFormFooter = () => {
+const AuthFormFooter = () => {
   const pathname = usePathname()?.split('/')[2] ?? ''
   const [footerProps, setFooterProps] = useState<FooterProps>({
     message: 'Already a Hex member?',
@@ -66,3 +66,5 @@ export const AuthFormFooter = () => {
     </small>
   )
 }
+
+export default AuthFormFooter

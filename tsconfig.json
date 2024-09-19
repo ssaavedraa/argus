@@ -19,9 +19,8 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@hex-shared-components/*": ["components/ui/shared/*/index.ts"],
-      "@hex-icons": ["components/ui/icons/index.ts"],
-      "@hex-components/*": ["components/*/index.ts"],
+      "@hex-ui/*": ["ui/*/index.ts"],
+      "@hex-icons": ["ui/icons/index.ts"],
       "@hex-domain/*": ["domain/*"],
       "@hex-store": ["store/index.ts"],
       "@hex-utils/*": ["utils/*/index.ts"],

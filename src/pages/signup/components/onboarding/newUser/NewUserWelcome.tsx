@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
 
-export const NewUserWelcome = () => {
+const NewUserWelcome = () => {
   const { userDetails } = useContext(NewUserContext)
   return (
     <>
@@ -12,3 +12,5 @@ export const NewUserWelcome = () => {
     </>
   )
 }
+
+export default NewUserWelcome

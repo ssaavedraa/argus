@@ -1,18 +1,13 @@
 'use client'
 
-import { Card, CardContent, CardHeader } from 'components/ui/shared/card'
 import { Suspense } from 'react'
 import { object } from 'zod'
 
 import { invite } from '@hex-actions'
 import { HexIsoLogo } from '@hex-icons'
 
-import {
-  Form,
-  FormButton,
-  FormField,
-  FormInput,
-} from '@hex-shared-components/form'
+import { Card, CardContent, CardHeader } from '@hex-ui/card'
+import { Form, FormButton, FormField, FormInput } from '@hex-ui/form'
 
 const InvitePage = () => {
   interface InviteData {

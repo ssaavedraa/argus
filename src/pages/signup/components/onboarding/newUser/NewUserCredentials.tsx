@@ -3,13 +3,13 @@ import { motion } from 'framer-motion'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
-import { FormField, FormInput } from '@hex-shared-components/form'
+import { FormField, FormInput } from '@hex-ui/form'
 import {
   NewUserCredentialsValidationSchema,
   PasswordValidationSchema,
 } from '@hex-utils/validation-schemas'
 
-export const NewUserCredentials = () => {
+const NewUserCredentials = () => {
   const { userDetails, handleChange, setIsNextButtonDisabled, delta } =
     useContext(NewUserContext)
 
@@ -126,7 +126,7 @@ export const NewUserCredentials = () => {
         <FormInput
           autoComplete='email'
           type='email'
-          defaultValue={userDetails.email}
+          defaultValue={userDetails?.email}
         />
       </FormField>
       <FormField
@@ -139,7 +139,7 @@ export const NewUserCredentials = () => {
         <FormInput
           type='password'
           autoComplete='new-password'
-          defaultValue={userDetails.password}
+          defaultValue={userDetails?.password}
         />
       </FormField>
       <FormField
@@ -152,7 +152,7 @@ export const NewUserCredentials = () => {
         <FormInput
           type='password'
           autoComplete='new-password'
-          defaultValue={userDetails.passwordConfirmation}
+          defaultValue={userDetails?.passwordConfirmation}
         />
       </FormField>
       <div className='bg-hex-950 mt-1 p-4 rounded-lg'>
@@ -176,3 +176,5 @@ export const NewUserCredentials = () => {
     </motion.div>
   )
 }
+
+export default NewUserCredentials

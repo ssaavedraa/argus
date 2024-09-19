@@ -1,4 +1,4 @@
-import { HexIsoLogo } from '@hex-icons'
+import { HexIsoLogo } from '@hex-ui/icons'
 
 const Home = () => {
   return (

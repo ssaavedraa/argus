@@ -2,9 +2,9 @@
 
 import { usePathname } from 'next/navigation'
 
-import { HexIsoLogo } from '@hex-icons'
+import { HexIsoLogo } from '@hex-ui/icons'
 
-export const AuthFormHeader = () => {
+const AuthFormHeader = () => {
   const pathname = usePathname()?.split('/')[2] ?? ''
 
   const title = () => {
@@ -29,3 +29,5 @@ export const AuthFormHeader = () => {
     </>
   )
 }
+
+export default AuthFormHeader

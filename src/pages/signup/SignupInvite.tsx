@@ -13,19 +13,18 @@ import {
 import { NewCompanyDetailsValidationSchema } from 'utils/validation-schemas/newCompanyDetailsValidationSchema'
 import { ZodObject, ZodTypeAny } from 'zod'
 
-import {
-  NewCompanyDetails,
-  NewUserCredentials,
-  NewUserDetails,
-  NewUserWelcome,
-  NewUserWrapUp,
-} from '@hex-components/onboarding/newUser'
-import { Button } from '@hex-shared-components/button'
-import { Form, FormButton } from '@hex-shared-components/form'
+import { Button } from '@hex-ui/button'
+import { Form, FormButton } from '@hex-ui/form'
 import {
   NewUserCredentialsValidationSchema,
   NewUserDetailsValidationSchema,
 } from '@hex-utils/validation-schemas'
+
+import NewCompanyDetails from './components/onboarding/newUser/NewCompanyDetails'
+import NewUserCredentials from './components/onboarding/newUser/NewUserCredentials'
+import NewUserDetails from './components/onboarding/newUser/NewUserDetails'
+import NewUserWelcome from './components/onboarding/newUser/NewUserWelcome'
+import NewUserWrapUp from './components/onboarding/newUser/NewUserWrapUp'
 
 interface SignupInviteProps {
   userDetails: User

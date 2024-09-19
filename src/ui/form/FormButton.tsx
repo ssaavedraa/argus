@@ -1,7 +1,7 @@
 import React, { ButtonHTMLAttributes } from 'react'
 
-import { Button } from '@hex-shared-components/button'
-import { Spinner } from '@hex-shared-components/spinner'
+import { Button } from '@hex-ui/button'
+import { Spinner } from '@hex-ui/spinner'
 
 import { useFormContext } from './FormProvider'
 

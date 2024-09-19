@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { ReactNode, useState, useTransition } from 'react'
 import { ZodObject } from 'zod'
 
-import { Alert } from '@hex-shared-components/altert'
+import { Alert } from '@hex-ui/alert'
 
 import { FormProvider, FormState } from './FormProvider'
 

@@ -10,12 +10,14 @@ type ButtonVariant =
   | 'outline'
   | 'text'
   | 'icon'
+
 type ButtonSize = 'small' | 'medium' | 'large'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   icon?: string
+  customStyles?: string
 }
 
 const baseStyles =
@@ -44,6 +46,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
   children,
   icon,
   size = 'medium',
+  customStyles,
   ...props
 }) => {
   const roundedStyles = variant === 'icon' ? 'rounded-full' : 'rounded-lg'
@@ -55,6 +58,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
         sizeStyles[size],
         variantStyles[variant],
         roundedStyles,
+        customStyles,
       )}
       {...props}
     >

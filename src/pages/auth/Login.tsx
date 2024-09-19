@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Form,
-  FormButton,
-  FormField,
-  FormInput,
-} from '@hex-shared-components/form'
+import { Form, FormButton, FormField, FormInput } from '@hex-ui/form'
 import { LoginValidationSchema } from '@hex-utils/validation-schemas'
 
 interface LoginPageProps {

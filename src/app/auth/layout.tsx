@@ -1,12 +1,8 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from 'components/ui/shared/card'
 import { ReactNode, Suspense } from 'react'
 
-import { AuthFormFooter, AuthFormHeader } from '@hex-components/auth'
+import AuthFormFooter from '@hex-pages/auth/components/auth/AuthFormFooter'
+import AuthFormHeader from '@hex-pages/auth/components/auth/AuthFormHeader'
+import { Card, CardContent, CardFooter, CardHeader } from '@hex-ui/card'
 
 interface AuthLayoutProps {
   children: ReactNode

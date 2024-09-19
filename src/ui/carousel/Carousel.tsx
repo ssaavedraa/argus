@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import { Children, FC, ReactNode } from 'react'
 
-import { Button } from '@hex-shared-components/button'
+import { Button } from '@hex-ui/button'
 
 import { CarouselCard } from './CarouselCard'
 import { CarouselProgress } from './CarouselProgress'

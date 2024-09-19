@@ -3,14 +3,14 @@ import { ChangeEvent, useContext } from 'react'
 import { NewCompanyDetailsValidationSchema } from 'utils/validation-schemas/newCompanyDetailsValidationSchema'
 
 import { NewUserContext } from '@hex-pages/signup/SignupInvite'
-import { FormAddress, FormField, FormInput } from '@hex-shared-components/form'
+import { FormAddress, FormField, FormInput } from '@hex-ui/form'
 
-export const NewCompanyDetails = () => {
+const NewCompanyDetails = () => {
   const { companyDetails, setCompanyDetails, delta, setIsNextButtonDisabled } =
     useContext(NewUserContext)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name = '', value = '' } = e?.target
 
     setCompanyDetails((prevCompanyDetails) => ({
       ...prevCompanyDetails,
@@ -36,7 +36,7 @@ export const NewCompanyDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput name='name' defaultValue={companyDetails.name} />
+        <FormInput name='name' defaultValue={companyDetails?.name} />
       </FormField>
       <FormField
         name='domain'
@@ -44,7 +44,7 @@ export const NewCompanyDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput name='domain' defaultValue={companyDetails.domain} />
+        <FormInput name='domain' defaultValue={companyDetails?.domain} />
       </FormField>
       <FormField
         name='nit'
@@ -52,7 +52,7 @@ export const NewCompanyDetails = () => {
         required
         onChange={handleChange}
       >
-        <FormInput name='nit' defaultValue={companyDetails.nit} />
+        <FormInput name='nit' defaultValue={companyDetails?.nit} />
       </FormField>
       <FormField
         name='phoneNumber'
@@ -62,7 +62,7 @@ export const NewCompanyDetails = () => {
       >
         <FormInput
           name='phoneNumber'
-          defaultValue={companyDetails.phoneNumber}
+          defaultValue={companyDetails?.phoneNumber}
         />
       </FormField>
       <FormAddress
@@ -70,9 +70,11 @@ export const NewCompanyDetails = () => {
         label='Company Address'
         required
         customHandleChange={handleChange}
-        defaultValue={companyDetails.address}
+        defaultValue={companyDetails?.address}
         autoComplete='off'
       />
     </motion.div>
   )
 }
+
+export default NewCompanyDetails

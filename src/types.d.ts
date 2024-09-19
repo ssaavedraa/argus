@@ -9,6 +9,7 @@ declare module 'next-auth' {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
+    companyId: string
     accessToken: string
   }
   /**
@@ -22,7 +23,7 @@ declare module 'next-auth' {
    */
   interface Session {
     user: {
-      accessToken: string
+      companyId: string
     } & DefaultSession['user']
   }
 }
@@ -32,6 +33,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     /** OpenID ID Token */
     idToken?: string
+    companyId: string
     accessToken: string
   }
 }

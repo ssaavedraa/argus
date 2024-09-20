@@ -8,7 +8,7 @@ export const TableHeader = ({ columns }: { columns: string[] }) => {
           <th
             key={column}
             scope='col'
-            className={`px-6 py-3 ${classNames({ 'rounded-tl-lg': index === 0, 'rounded-tr-lg': index === columns.length - 1 })}`}
+            className={`px-6 py-3 ${classNames({ 'rounded-tl-lg': index === 0, 'rounded-tr-lg text-right': index === columns.length - 1 })}`}
           >
             {column}
           </th>

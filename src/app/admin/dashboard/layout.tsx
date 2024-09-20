@@ -1,8 +1,9 @@
-import Link from 'next/link'
 import { ReactNode } from 'react'
 
 import { auth } from '@hex-auth'
 import { HexIsoLogo } from '@hex-icons'
+
+import { HexLink } from '@hex-ui/link'
 
 const DashboardLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth()
@@ -15,13 +16,13 @@ const DashboardLayout = async ({ children }: { children: ReactNode }) => {
             <HexIsoLogo />
           </i>
           <ul className='flex flex-row gap-2'>
-            <li className='rounded-2xl px-4 py-1'>Products</li>
-            <li className='rounded-2xl px-4 py-1'>Account</li>
-            <li className='rounded-2xl px-4 py-1'>
-              <Link href='/admin/invite'>Invite</Link>
+            {/* <li className='rounded-2xl px-4 py-1'>Products</li>
+            <li className='rounded-2xl px-4 py-1'>Account</li> */}
+            <li className='rounded-2xl'>
+              <HexLink href='/admin/invite'>Invite</HexLink>
             </li>
-            <li className='rounded-2xl px-4 py-1'>
-              <Link href='/admin/dashboard/teams'>Teams</Link>
+            <li className='rounded-2xl'>
+              <HexLink href='/admin/dashboard/teams'>Teams</HexLink>
             </li>
           </ul>
         </div>

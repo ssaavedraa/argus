@@ -77,7 +77,20 @@ const TeamPage = () => {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p>Edit</p>
+                  <div className='flex flex-row gap-2 text-2xl justify-end'>
+                    <Button
+                      variant='icon'
+                      className='p-2 rounded-md text-hex-300 hover:text-hex-700 hover:bg-hex-300 hover:shadow-neumorphic'
+                    >
+                      <Icon icon='mdi:pencil' />
+                    </Button>
+                    <Button
+                      variant='icon'
+                      className='p-2 rounded-md text-danger hover:text-red-300 hover:bg-pink-700 hover:shadow-neumorphic'
+                    >
+                      <Icon icon='mdi:garbage' />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

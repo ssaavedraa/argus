@@ -13,8 +13,9 @@ const TeamsLayout = async ({ children }: PropsWithChildren) => {
 
   return (
     <div className='flex flex-row flex-nowrap w-full h-full'>
-      <aside className='h-full w-1/6 p-4 pr-0 overflow-y-auto'>
-        <ul className='block space-y-'>
+      <aside className='h-full w-1/6 pl-4 pb-4 pr-0 pt-0 overflow-y-auto'>
+        <p className='mb-2 text-2xl text-center'>Teams</p>
+        <ul className='block'>
           {teams.map(({ name, id }) => (
             <TeamButton key={id} name={name} />
           ))}

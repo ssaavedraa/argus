@@ -1,29 +1,23 @@
 'use client'
 
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import { Button } from '@hex-ui/button'
+import { HexLink } from '@hex-ui/link'
 
 const TeamButton = ({ name = '' }: { name: string }) => {
   const params = useParams()
 
   return (
-    <Button
+    <HexLink
       variant={
         params?.team === name?.toLowerCase().replace(/ /g, '-')
-          ? 'primary'
-          : 'text'
+          ? 'button'
+          : 'primary'
       }
-      customStyles='w-full truncate block px-0 py-0'
+      href={`/admin/dashboard/teams/${name.toLowerCase().replace(/ /g, '-')}`}
     >
-      <Link
-        href={`/admin/dashboard/teams/${name.toLowerCase().replace(/ /g, '-')}`}
-        className='h-full w-full overflow-clip py-2 truncate'
-      >
-        {name}
-      </Link>
-    </Button>
+      {name}
+    </HexLink>
   )
 }
 

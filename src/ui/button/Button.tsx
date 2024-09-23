@@ -51,15 +51,6 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
 }) => {
   const roundedStyles = variant === 'icon' ? 'rounded-full' : 'rounded-lg'
 
-  console.debug(
-    classNames(
-      baseStyles,
-      sizeStyles[size],
-      variantStyles[variant],
-      roundedStyles,
-      customStyles,
-    ),
-  )
   return (
     <button
       className={classNames(

@@ -9,6 +9,8 @@ import {
   useSearchParams,
 } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { ModalContent } from 'ui/modal/ModalContent'
+import { ModalHeader } from 'ui/modal/ModalHeader'
 
 import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import { Button } from '@hex-ui/button'
@@ -47,7 +49,7 @@ const TeamPage = () => {
     router.push(`?edit=${userId}`)
   }
 
-  const clsoeEditModal = () => {
+  const closeEditModal = () => {
     router.push(backUrl || '/')
   }
 
@@ -62,7 +64,12 @@ const TeamPage = () => {
 
   return (
     <div className='bg-hex-300 bg-opacity-30 rounded-lg h-full'>
-      <Modal isModalOpen={isModalOpen} onClose={clsoeEditModal} />
+      <Modal isModalOpen={isModalOpen}>
+        <ModalHeader onClose={closeEditModal} title='Edit user' />
+        <ModalContent>
+          <div></div>
+        </ModalContent>
+      </Modal>
       <div className='h-full overflow-y-auto relative'>
         <TeamMembersTable
           columns={columns}

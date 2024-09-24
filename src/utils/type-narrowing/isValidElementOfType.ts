@@ -11,5 +11,5 @@ export function isValidElementOfType<T>(
   child: any,
   Component: ComponentType<T>,
 ): child is ReactElement<T> {
-  return isValidElement(child), child.type === Component
+  return isValidElement(child) && child.type === Component
 }

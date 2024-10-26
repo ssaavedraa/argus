@@ -24,13 +24,14 @@ const baseStyles =
   'inline-flex items-center justify-center focus:outline-none transition-all duration-300 disabled:opacity-50 disabled:shadow-none'
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-hex-300 hover:bg-hex-400 text-primary shadow-neumorphic',
+  primary: 'bg-hex-300 hover:bg-hex-400 text-primary shadow-neumorphic-light',
   secondary:
-    'bg-purple-700 hover:bg-purple-800  text-hex-200 shadow-neumorphic',
-  danger: 'bg-red-500 hover:bg-red-600 text-pink-200 shadow-neumorphic',
-  success: 'bg-green-400 hover:bg-green-500 text-green-700 shadow-neumorphic',
+    'bg-purple-700 hover:bg-purple-800  text-hex-200 shadow-neumorphic-dark',
+  danger: 'bg-red-500 hover:bg-red-600 text-pink-200 shadow-neumorphic-light',
+  success:
+    'bg-green-400 hover:bg-green-500 text-green-700 shadow-neumorphic-light',
   outline:
-    'bg-transparent border-2 border-hex-200 hover:bg-hex-100 hover:text-hex-600 hover:border-hex-600 text-hex-200 hover:shadow-neumorphic',
+    'bg-transparent border-2 border-hex-200 hover:bg-hex-100 hover:text-hex-600 hover:border-hex-600 text-hex-200 hover:shadow-neumorphic-light',
   text: 'bg-transparent text-hex-200 hover:text-hex-600 hover:bg-hex-100',
   icon: 'text-hex-200 hover:text-hex-800 hover:bg-hex-100 aspect-square',
 }

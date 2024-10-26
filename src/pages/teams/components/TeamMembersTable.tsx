@@ -56,14 +56,14 @@ const TeamMembersTable = ({
               <div className='flex flex-row gap-2 text-2xl justify-end'>
                 <Button
                   variant='icon'
-                  className='p-2 rounded-md text-hex-300 hover:text-hex-700 hover:bg-hex-300 hover:shadow-neumorphic'
+                  className='p-2 rounded-md text-hex-300 hover:text-hex-700 hover:bg-hex-300 hover:shadow-neumorphic-light'
                   onClick={() => editAction(index)}
                 >
                   <Icon icon='mdi:pencil' />
                 </Button>
                 <Button
                   variant='icon'
-                  className='p-2 rounded-md text-danger hover:text-red-300 hover:bg-pink-700 hover:shadow-neumorphic'
+                  className='p-2 rounded-md text-danger hover:text-red-300 hover:bg-pink-700 hover:shadow-neumorphic-light'
                 >
                   <Icon icon='mdi:garbage' />
                 </Button>

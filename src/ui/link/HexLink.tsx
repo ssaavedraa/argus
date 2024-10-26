@@ -16,7 +16,7 @@ interface HexLinkProps extends LinkProps, PropsWithChildren {
 const baseStyles = 'block py-2 px-4 rounded-md'
 
 const variantStyles: Record<LinkVariant, string> = {
-  button: 'bg-hex-300 hover:bg-hex-400 text-primary shadow-neumorphic',
+  button: 'bg-hex-300 hover:bg-hex-400 text-primary shadow-neumorphic-light',
   primary: 'bg-transparent text-hex-200 hover:text-primary hover:bg-hex-300',
 }
 

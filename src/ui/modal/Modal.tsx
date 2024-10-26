@@ -40,7 +40,7 @@ export const Modal = ({ isModalOpen, children }: ModalProps) => {
 
   return (
     <div className='absolute z-20 top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-hex-950 bg-opacity-45 backdrop-blur-sm'>
-      <div className='bg-background-start shadow-neumorphic rounded-xl p-4 h-3/6 w-1/3 flex flex-col'>
+      <div className='bg-background-start shadow-neumorphic-dark rounded-xl p-4 h-3/6 w-1/3 flex flex-col'>
         {children}
       </div>
     </div>

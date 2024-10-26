@@ -33,7 +33,7 @@ export const Card: FC<PropsWithChildren<CardProps>> = ({ children }) => {
   })
 
   return (
-    <div className='bg-purple-700 bg-opacity-30 lg:w-1/3 mx-auto rounded-xl p-4 shadow-neumorphic'>
+    <div className='bg-purple-700 bg-opacity-30 lg:w-1/3 mx-auto rounded-xl p-4 shadow-neumorphic-dark'>
       {validateChildren}
     </div>
   )

@@ -95,7 +95,6 @@ const TeamPage = () => {
             <FormField label='Company Role' name='companyRole' required>
               <FormInput />
             </FormField>
-            <FormField label='Role' name='role' required></FormField>
           </Form>
           <Typeahead value={companyRole}>
             <TypeaheadInput value={companyRole} onChange={handleRoleChange} />

@@ -59,7 +59,10 @@ const config: Config = {
         },
       },
       boxShadow: {
-        neumorphic: '8px 8px 15px #feebff4a inset, 8px 8px 15px #00000028;',
+        'neumorphic-light':
+          '10px 10px 30px rgba(186, 140, 249, 0.2), 10px 10px 30px rgba(254, 235, 255, 0.7) inset;',
+        'neumorphic-dark':
+          '10px 10px 30px rgba(19, 13, 89, 0.3), 10px 10px 30px rgba(144, 45, 240, 0.15) inset;',
       },
     },
   },

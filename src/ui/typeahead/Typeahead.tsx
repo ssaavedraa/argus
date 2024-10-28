@@ -1,42 +1,36 @@
-import {
-  Children,
-  cloneElement,
-  KeyboardEvent,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 
-import { isValidElementOfType } from '@hex-utils/type-narrowing'
+import { Spinner } from '@hex-ui/spinner'
 
 import { TypeaheadInput } from './TypeaheadInput'
+import { TypeaheadOption } from './TypeaheadOption'
+import { TypeaheadProvider } from './TypeaheadProvider'
 import { TypeaheadSuggestions } from './TypeaheadSuggestions'
 
 interface TypeaheadProps {
-  children: [
-    ReactElement<typeof TypeaheadInput>,
-    ReactElement<typeof TypeaheadSuggestions> | null,
-  ]
-  value: string
+  query: string
+  // eslint-disable-next-line no-unused-vars
+  onChange: (event: any) => void
+  // eslint-disable-next-line no-unused-vars
+  fetchSuggestions: (query: string, signal: AbortSignal) => Promise<string[]>
+  // eslint-disable-next-line no-unused-vars
+  onAddNewOption?: (query: string) => void
 }
 
-export const Typeahead = ({ children, value }: TypeaheadProps) => {
-  const [input, suggestions] = children
-
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+export const Typeahead = ({
+  query,
+  fetchSuggestions,
+  onChange,
+  // TODO: onAddNewOption,
+}: TypeaheadProps) => {
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1)
+  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const typeAheadRef = useRef<HTMLDivElement | null>(null)
 
-  if (!isValidElementOfType(input, TypeaheadInput)) {
-    throw new Error('Typeahead must have a TypeaheadInput as its first child.')
-  }
-
-  if (suggestions && !isValidElementOfType(suggestions, TypeaheadSuggestions)) {
-    throw new Error(
-      'Typeahead can have an optional TypeaheadSuggestions as its second child.',
-    )
-  }
+  const openTypeahead = () => setIsOpen(true)
+  const closeTypeahead = () => setIsOpen(false)
 
   // keyboard navigation
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -44,8 +38,7 @@ export const Typeahead = ({ children, value }: TypeaheadProps) => {
       return
     }
 
-    const suggestionElements = Children.toArray(suggestions.props.children)
-    const maxIndex = suggestionElements.length - 1
+    const maxIndex = suggestions.length - 1
 
     switch (event.key) {
       case 'ArrowDown':
@@ -68,14 +61,41 @@ export const Typeahead = ({ children, value }: TypeaheadProps) => {
 
   // Debounce
   useEffect(() => {
-    const debouncer = setTimeout(() => {
-      if (value) {
+    const abortController = new AbortController()
+
+    const debouncer = setTimeout(async () => {
+      if (suggestions.includes(query)) {
+        return
+      }
+
+      if (query) {
         setIsOpen(true)
+        setIsLoading(true)
+
+        try {
+          const results = await fetchSuggestions(query, abortController.signal)
+          setSuggestions(results)
+          setIsLoading(false)
+        } catch (error) {
+          if ((error as any)?.name === 'AbortError') {
+            console.log('Fetch Aborted')
+          } else {
+            console.error('Error fetching suggestions:', error)
+          }
+
+          setIsLoading(false)
+        }
+      } else {
+        setSuggestions([])
+        setIsOpen(false)
       }
     }, 300)
 
-    return () => clearTimeout(debouncer)
-  }, [value])
+    return () => {
+      clearTimeout(debouncer)
+      abortController.abort()
+    }
+  }, [query, fetchSuggestions])
 
   // close suggestions
   useEffect(() => {
@@ -90,15 +110,58 @@ export const Typeahead = ({ children, value }: TypeaheadProps) => {
 
     document.addEventListener('mousedown', handleClickOutside)
 
-    return document.removeEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [])
 
   return (
-    <div ref={typeAheadRef}>
-      {cloneElement(input, {
-        onKeyDown: handleKeyDown,
-      })}
-      {isOpen && suggestions && cloneElement(suggestions, { highlightedIndex })}
+    <div
+      ref={typeAheadRef}
+      className='shadow-neumorphic-light relative rounded-lg'
+    >
+      <TypeaheadProvider
+        query={query}
+        isOpen={isOpen}
+        closeTypeahead={closeTypeahead}
+        openTypeahead={openTypeahead}
+      >
+        <TypeaheadInput
+          value={query}
+          onChange={onChange}
+          onKeyDown={handleKeyDown}
+        />
+
+        {isOpen &&
+          (isLoading ? (
+            <div className='bg-hex-650 flex rounded-b-lg overflow-clip'>
+              <div className='mx-auto h-8 m-2'>
+                <Spinner />
+              </div>
+            </div>
+          ) : (
+            <TypeaheadSuggestions highlightedIndex={highlightedIndex}>
+              {[
+                ...suggestions?.map((suggestion, index) => (
+                  <TypeaheadOption
+                    key={index}
+                    value={suggestion}
+                    isHighlighted={index === highlightedIndex}
+                    onSelect={onChange}
+                  />
+                )),
+                <TypeaheadOption
+                  key={query}
+                  value={query}
+                  isHighlighted={false}
+                  onSelect={onChange}
+                  newOptionPlacehoder='Add new role'
+                  isNewOption
+                />,
+              ]}
+            </TypeaheadSuggestions>
+          ))}
+      </TypeaheadProvider>
     </div>
   )
 }

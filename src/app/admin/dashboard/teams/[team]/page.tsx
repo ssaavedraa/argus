@@ -8,7 +8,7 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
 import { ModalContent } from 'ui/modal/ModalContent'
 import { ModalHeader } from 'ui/modal/ModalHeader'
 
@@ -16,12 +16,7 @@ import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import { Button } from '@hex-ui/button'
 import { Form, FormField, FormInput } from '@hex-ui/form'
 import { Modal } from '@hex-ui/modal'
-import {
-  Typeahead,
-  TypeaheadInput,
-  TypeaheadOption,
-  TypeaheadSuggestions,
-} from '@hex-ui/typeahead'
+import { Typeahead } from '@hex-ui/typeahead'
 
 export interface TeamMember {
   id: number
@@ -41,8 +36,6 @@ const TeamPage = () => {
 
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(!!query?.get('edit'))
-
-  const [companyRole, setCompanyRole] = useState<string>('')
 
   const fetchTeamMembers = async () => {
     if (params?.team) {
@@ -71,10 +64,29 @@ const TeamPage = () => {
     setIsModalOpen(!!query?.get('edit'))
   }, [query])
 
-  const typeAheadOptions = ['CTO', 'CEO', 'Sales manager']
+  const mockFetchSuggestions = async (query: string) => {
+    console.debug(
+      '🚀 ~ file: page.tsx:68 ~ mockFetchSuggestions ~ query:',
+      query,
+    )
+    // Simulating a delay to mimic an API call
+    await new Promise((resolve) => setTimeout(resolve, 3000))
 
-  const handleRoleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCompanyRole(event.target.value)
+    // Return predefined suggestions based on the query
+    return ['CTO', 'CEO', 'Sales Manager']
+  }
+
+  const [companyRole, setCompanyRole] = useState<string>('')
+
+  const handleRoleChange = (
+    event: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLElement>,
+  ) => {
+    if (event.target instanceof HTMLInputElement) {
+      setCompanyRole(event.target.value)
+    } else {
+      mockFetchSuggestions
+      setCompanyRole((event.target as HTMLLIElement).dataset.value || '')
+    }
   }
 
   return (
@@ -96,16 +108,11 @@ const TeamPage = () => {
               <FormInput />
             </FormField>
           </Form>
-          <Typeahead value={companyRole}>
-            <TypeaheadInput value={companyRole} onChange={handleRoleChange} />
-            {typeAheadOptions.length > 0 ? (
-              <TypeaheadSuggestions>
-                {typeAheadOptions.map((suggestion, index) => (
-                  <TypeaheadOption key={index} value={suggestion} />
-                ))}
-              </TypeaheadSuggestions>
-            ) : null}
-          </Typeahead>
+          <Typeahead
+            query={companyRole}
+            onChange={handleRoleChange}
+            fetchSuggestions={mockFetchSuggestions}
+          />
           <Button variant='text' color='danger'>
             Reset Password
           </Button>

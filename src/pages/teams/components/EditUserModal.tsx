@@ -9,6 +9,7 @@ import { Button } from '@hex-ui/button'
 import { Form, FormField, FormInput } from '@hex-ui/form'
 import { Modal } from '@hex-ui/modal'
 import { Typeahead } from '@hex-ui/typeahead'
+import { EditUserModalValidationSchema } from '@hex-utils/validation-schemas'
 
 interface EditUserModalProps {
   isModalOpen: boolean
@@ -112,7 +113,10 @@ function EditUserModal({
       <ModalContent>
         <div className='flex flex-col h-full'>
           <div className='h-full'>
-            <Form initialValues={initialValues}>
+            <Form
+              initialValues={initialValues}
+              validationSchema={EditUserModalValidationSchema}
+            >
               <FormField
                 label='Full Name'
                 name='fullname'

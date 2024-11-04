@@ -1,31 +1,33 @@
-import { ChangeEvent, KeyboardEvent } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
 import { useTypeaheadContext } from './TypeaheadProvider'
 
-interface TypeaheadInputProps {
-  value: string
-  // eslint-disable-next-line no-unused-vars
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
-  // eslint-disable-next-line no-unused-vars
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
-}
+interface TypeaheadInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-export const TypeaheadInput = ({
-  value,
-  onChange,
-  onKeyDown,
-}: TypeaheadInputProps) => {
-  const { openTypeahead } = useTypeaheadContext()
+export const TypeaheadInput = forwardRef<HTMLInputElement, TypeaheadInputProps>(
+  ({ onChange, onKeyDown, name, defaultValue, onFocus, onBlur }, ref) => {
+    const { query, inputPlaceholder, required } = useTypeaheadContext()
 
-  return (
-    <input
-      className='w-full px-2 py-3 bg-hex-600 text-md placeholder:text-hex-50 tracking-wide outline-none shadow-lg rounded-lg'
-      type='text'
-      value={value}
-      placeholder='Start typing a category'
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      onFocus={openTypeahead}
-    />
-  )
-}
+    return (
+      <label htmlFor={name}>
+        <span className='px-2 capitalize'>
+          {inputPlaceholder}
+          {required && <span className='text-danger'>*</span>}
+        </span>
+        <input
+          className='w-full mt-1 px-2 py-3 bg-hex-600 text-md leading-5 placeholder:text-hex-50 tracking-wide outline-none shadow-neumorphic-dark rounded-lg'
+          type='text'
+          value={query}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          defaultValue={defaultValue}
+          ref={ref}
+        />
+      </label>
+    )
+  },
+)
+
+TypeaheadInput.displayName = 'TypeaheadInput'

@@ -44,6 +44,7 @@ const NewUserDetails = () => {
       >
         <FormInput defaultValue={userDetails?.fullname} />
       </FormField>
+      {/* TODO: use company role typeahead */}
       <FormField
         label='Company Role'
         name='companyRole'

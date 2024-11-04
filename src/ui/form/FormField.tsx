@@ -19,6 +19,7 @@ interface FormFieldProps {
   name: string
   label: string
   children: ReactElement | ReactElement[]
+  variant?: 'text-top' | 'animated'
   showError?: boolean
   required?: boolean
   // eslint-disable-next-line no-unused-vars
@@ -33,6 +34,7 @@ export const FormField = (props: FormFieldProps) => {
     required = false,
     onChange,
     showError = true,
+    variant = 'animated',
   } = props
 
   const [hasContent, setHasContent] = useState<boolean>(false)
@@ -74,6 +76,7 @@ export const FormField = (props: FormFieldProps) => {
         id: name,
         name,
         onChange: handleChange,
+        variant,
       } as any)
     }
     return child
@@ -103,18 +106,26 @@ export const FormField = (props: FormFieldProps) => {
   return (
     <div className='flex flex-col items-center justify-center w-full'>
       <label className='relative w-full' htmlFor={name}>
+        {variant === 'text-top' && (
+          <span className='px-2 capitalize'>
+            {label}
+            {required && <span className='text-danger'>*</span>}
+          </span>
+        )}
         {Array.isArray(children)
           ? children.map((child) => enhanceChild(child))
           : enhanceChild(children)}
         {Array.isArray(children)
           ? children.find((child) => (child.type as any) === FormError) || null
           : fieldError && showError && <FormError message={fieldError} />}
-        <span
-          className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-autofill:peer-focus:text-hex-900 peer-focus:-translate-y-2 peer-focus:text-xs peer-autofill:text-hex-900 ${getLabelStyles()}`}
-        >
-          {label}
-          {required && <span className='text-danger'>*</span>}
-        </span>
+        {variant == 'animated' && (
+          <span
+            className={`absolute top-4 left-2 tracking-wide capitalize pointer-events-none duration-200 peer-autofill:peer-focus:text-hex-900 peer-focus:-translate-y-2 peer-focus:text-xs peer-autofill:text-hex-900 ${getLabelStyles()}`}
+          >
+            {label}
+            {required && <span className='text-danger'>*</span>}
+          </span>
+        )}
       </label>
     </div>
   )

@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 import { Button } from '@hex-ui/button'
 
@@ -14,6 +14,20 @@ export const ModalHeader = ({
   title,
   backButton = null,
 }: ModalHeaderProps) => {
+  useEffect(() => {
+    const handleKeydownEvent = (event: KeyboardEvent) => {
+      if (event.key == 'Escape') {
+        onClose()
+      }
+    }
+    window?.addEventListener('keydown', handleKeydownEvent)
+
+    return () => {
+      window?.removeEventListener('keydown', handleKeydownEvent)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div
       className={`flex flex-row ${title ? 'justify-between' : 'justify-end'} capitalize font-semibold tracking-wide h-[calc((100%/12)*1)]`}

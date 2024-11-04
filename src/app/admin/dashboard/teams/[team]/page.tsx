@@ -8,15 +8,13 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation'
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
-import { ModalContent } from 'ui/modal/ModalContent'
-import { ModalHeader } from 'ui/modal/ModalHeader'
+import { useEffect, useState } from 'react'
 
+import { getRoles, getTeams, getUserById } from '@hex-actions'
+
+import EditUserModal from '@hex-pages/teams/components/EditUserModal'
 import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import { Button } from '@hex-ui/button'
-import { Form, FormField, FormInput } from '@hex-ui/form'
-import { Modal } from '@hex-ui/modal'
-import { Typeahead } from '@hex-ui/typeahead'
 
 export interface TeamMember {
   id: number
@@ -64,60 +62,17 @@ const TeamPage = () => {
     setIsModalOpen(!!query?.get('edit'))
   }, [query])
 
-  const mockFetchSuggestions = async (query: string) => {
-    console.debug(
-      '🚀 ~ file: page.tsx:68 ~ mockFetchSuggestions ~ query:',
-      query,
-    )
-    // Simulating a delay to mimic an API call
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
-    // Return predefined suggestions based on the query
-    return ['CTO', 'CEO', 'Sales Manager']
-  }
-
-  const [companyRole, setCompanyRole] = useState<string>('')
-
-  const handleRoleChange = (
-    event: ChangeEvent<HTMLInputElement> | MouseEvent<HTMLElement>,
-  ) => {
-    if (event.target instanceof HTMLInputElement) {
-      setCompanyRole(event.target.value)
-    } else {
-      mockFetchSuggestions
-      setCompanyRole((event.target as HTMLLIElement).dataset.value || '')
-    }
-  }
-
   return (
     <div className='bg-hex-300 bg-opacity-30 rounded-lg h-full'>
-      <Modal isModalOpen={isModalOpen}>
-        <ModalHeader onClose={closeEditModal} title='Edit user' />
-        <ModalContent>
-          <Form>
-            <FormField label='Full Name' name='fullname' required>
-              <FormInput />
-            </FormField>
-            <FormField label='email' name='email' required>
-              <FormInput />
-            </FormField>
-            <FormField label='Address' name='address' required>
-              <FormInput />
-            </FormField>
-            <FormField label='Company Role' name='companyRole' required>
-              <FormInput />
-            </FormField>
-          </Form>
-          <Typeahead
-            query={companyRole}
-            onChange={handleRoleChange}
-            fetchSuggestions={mockFetchSuggestions}
-          />
-          <Button variant='text' color='danger'>
-            Reset Password
-          </Button>
-        </ModalContent>
-      </Modal>
+      {isModalOpen && (
+        <EditUserModal
+          isModalOpen={isModalOpen}
+          closeEditModal={closeEditModal}
+          getUser={getUserById}
+          getTeams={getTeams}
+          getRoles={getRoles}
+        />
+      )}
       <div className='h-full overflow-y-auto relative'>
         <TeamMembersTable
           columns={columns}

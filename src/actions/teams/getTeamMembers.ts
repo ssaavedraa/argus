@@ -9,7 +9,7 @@ export const getTeamMembers = async (teamName: string) => {
     const session = await auth()
 
     const response = await fetch(
-      `${apiUrl}/api/teams/${session?.user.companyId}/${teamName}`,
+      `${apiUrl}/api/companies/${session?.user.companyId}/teams/${teamName}/members`,
     )
 
     const data = await response.json()

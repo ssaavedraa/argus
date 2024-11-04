@@ -26,7 +26,7 @@ const TeamMembersTable = ({
     <Table>
       <TableHeader columns={columns} />
       <TableBody>
-        {teamMembers.map(({ name, email, teamName, role }, index) => (
+        {teamMembers?.map(({ name, email, teamName, role, id }, index) => (
           <TableRow key={index}>
             <TableCell>
               <div className='flex gap-2'>
@@ -57,7 +57,7 @@ const TeamMembersTable = ({
                 <Button
                   variant='icon'
                   className='p-2 rounded-md text-hex-300 hover:text-hex-700 hover:bg-hex-300 hover:shadow-neumorphic-light'
-                  onClick={() => editAction(index)}
+                  onClick={() => editAction(id)}
                 >
                   <Icon icon='mdi:pencil' />
                 </Button>

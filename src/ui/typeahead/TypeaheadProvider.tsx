@@ -3,7 +3,8 @@ import { createContext, PropsWithChildren, useContext } from 'react'
 interface TypeaheadContextProps {
   query: string
   isOpen: boolean
-  openTypeahead: () => void
+  inputPlaceholder: string
+  required: boolean
   closeTypeahead: () => void
 }
 
@@ -26,20 +27,29 @@ export const useTypeaheadContext = () => {
 interface TypeaheadProviderProps extends PropsWithChildren {
   query: string
   isOpen: boolean
-  openTypeahead: () => void
+  inputPlaceholder: string
+  required?: boolean
   closeTypeahead: () => void
 }
 
 export const TypeaheadProvider = (props: TypeaheadProviderProps) => {
-  const { children, query, isOpen, openTypeahead, closeTypeahead } = props
+  const {
+    children,
+    query,
+    isOpen,
+    closeTypeahead,
+    inputPlaceholder,
+    required = false,
+  } = props
 
   return (
     <TypeaheadContext.Provider
       value={{
         query,
         isOpen,
-        openTypeahead,
         closeTypeahead,
+        inputPlaceholder,
+        required,
       }}
     >
       {children}

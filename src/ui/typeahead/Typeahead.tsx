@@ -9,6 +9,10 @@ import { TypeaheadSuggestions } from './TypeaheadSuggestions'
 
 interface TypeaheadProps {
   query: string
+  name: string
+  inputPlaceholder: string
+  defaultValue?: string
+  required?: boolean
   // eslint-disable-next-line no-unused-vars
   onChange: (event: any) => void
   // eslint-disable-next-line no-unused-vars
@@ -21,15 +25,20 @@ export const Typeahead = ({
   query,
   fetchSuggestions,
   onChange,
+  name,
+  inputPlaceholder,
+  required = false,
+  defaultValue,
   // TODO: onAddNewOption,
 }: TypeaheadProps) => {
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1)
   const [suggestions, setSuggestions] = useState<string[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const typeAheadRef = useRef<HTMLDivElement | null>(null)
 
-  const openTypeahead = () => setIsOpen(true)
+  const typeAheadRef = useRef<HTMLDivElement | null>(null)
+  const typeAheadInputRef = useRef<HTMLInputElement | null>(null)
+
   const closeTypeahead = () => setIsOpen(false)
 
   // keyboard navigation
@@ -68,12 +77,15 @@ export const Typeahead = ({
         return
       }
 
-      if (query) {
-        setIsOpen(true)
+      if (query && isOpen) {
         setIsLoading(true)
+        if (typeAheadInputRef.current?.contains(document.activeElement)) {
+          setIsOpen(true)
+        }
 
         try {
           const results = await fetchSuggestions(query, abortController.signal)
+
           setSuggestions(results)
           setIsLoading(false)
         } catch (error) {
@@ -95,16 +107,37 @@ export const Typeahead = ({
       clearTimeout(debouncer)
       abortController.abort()
     }
-  }, [query, fetchSuggestions])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, fetchSuggestions, isOpen])
+
+  // Handle focus and blur events
+  const handleFocus = () => {
+    if (query) {
+      setIsOpen(true)
+    }
+  }
+
+  const handleBlur = () => {
+    // Delay closing to allow click events on suggestions
+    setTimeout(() => {
+      if (!typeAheadInputRef.current?.contains(document.activeElement)) {
+        setIsOpen(false)
+      }
+    }, 300)
+  }
 
   // close suggestions
   useEffect(() => {
+    if (!typeAheadInputRef.current) return
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         typeAheadRef.current &&
         !typeAheadRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false)
+        setTimeout(() => {
+          setIsOpen(false)
+        }, 300)
       }
     }
 
@@ -116,25 +149,27 @@ export const Typeahead = ({
   }, [])
 
   return (
-    <div
-      ref={typeAheadRef}
-      className='shadow-neumorphic-light relative rounded-lg'
-    >
+    <div ref={typeAheadRef} className='relative rounded-lg'>
       <TypeaheadProvider
         query={query}
         isOpen={isOpen}
         closeTypeahead={closeTypeahead}
-        openTypeahead={openTypeahead}
+        inputPlaceholder={inputPlaceholder}
+        required={required}
       >
         <TypeaheadInput
-          value={query}
           onChange={onChange}
           onKeyDown={handleKeyDown}
+          name={name}
+          defaultValue={defaultValue}
+          ref={typeAheadInputRef}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
 
         {isOpen &&
-          (isLoading ? (
-            <div className='bg-hex-650 flex rounded-b-lg overflow-clip'>
+          (isLoading && suggestions.length === 0 ? (
+            <div className='bg-hex-650 flex rounded-b-lg overflow-clip mt-[-4px]'>
               <div className='mx-auto h-8 m-2'>
                 <Spinner />
               </div>

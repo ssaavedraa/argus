@@ -16,7 +16,7 @@ export const TypeaheadSuggestions = ({
   highlightedIndex,
 }: TypeaheadSuggestionsProps) => {
   return (
-    <ul className='border-t-2 shadow-2xl absolute w-full z-50 rounded-b-lg overflow-clip'>
+    <ul className='border-t-2 mt-[-4px] shadow-2xl absolute w-full z-50 rounded-b-lg overflow-clip'>
       {children &&
         Children.map(children, (child, index) => {
           if (!isValidElementOfType(child, TypeaheadOption)) {

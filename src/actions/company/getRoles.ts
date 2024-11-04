@@ -4,12 +4,12 @@ import { hexFetch } from 'utils/hexFetch/hexFetch'
 
 import { auth } from '@hex-auth'
 
-export const getTeams = async () => {
+export const getRoles = async () => {
   try {
     const session = await auth()
 
     return await hexFetch(
-      `api/companies/${session?.user.companyId}/teams`,
+      `api/companies/${session?.user.companyId}/roles`,
       'GET',
     )
   } catch (error) {

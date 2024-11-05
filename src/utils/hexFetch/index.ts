@@ -1,0 +1,1 @@
+export { hexFetch } from './hexFetch'

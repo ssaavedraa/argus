@@ -1,8 +1,8 @@
 'use server'
 
-import { hexFetch } from 'utils/hexFetch/hexFetch'
-
 import { auth } from '@hex-auth'
+
+import { hexFetch } from '@hex-utils/hexFetch'
 
 export const getTeams = async () => {
   try {

@@ -8,13 +8,14 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import { getRoles, getTeams, getUserById } from '@hex-actions'
 
 import EditUserModal from '@hex-pages/teams/components/EditUserModal'
 import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import { Button } from '@hex-ui/button'
+import { delay } from '@hex-utils/delay'
 
 export interface TeamMember {
   id: number
@@ -37,6 +38,7 @@ const TeamPage = () => {
 
   const fetchTeamMembers = async () => {
     if (params?.team) {
+      await delay(3000)
       const teamMembers = await getTeamMembers(params?.team as string)
 
       setTeamMembers(teamMembers)
@@ -74,11 +76,15 @@ const TeamPage = () => {
         />
       )}
       <div className='h-full overflow-y-auto relative'>
-        <TeamMembersTable
-          columns={columns}
-          editAction={openEditModal}
-          teamMembers={teamMembers}
-        />
+        <Suspense fallback={<h1>Loading users table</h1>}>
+          {teamMembers.length > 0 && (
+            <TeamMembersTable
+              columns={columns}
+              editAction={openEditModal}
+              teamMembers={teamMembers}
+            />
+          )}
+        </Suspense>
         <div className='absolute p-4 m-4 bottom-0 right-0 aspect-square rounded-full flex items-center justify-center overflow-clip'>
           <Button
             variant='icon'

@@ -34,10 +34,14 @@ export const ModalHeader = ({
     >
       {backButton}
 
-      {title && <div className='text-2xl'>{title}</div>}
+      {title && <span className='text-2xl py-1'>{title}</span>}
 
-      <Button onClick={onClose}>
-        <Icon icon='mdi:close' className='text-3xl' />
+      <Button
+        onClick={onClose}
+        variant='icon'
+        className='p-1 hover:text-hex-350 rounded-md h-10 w-10 flex justify-center'
+      >
+        <Icon icon='mdi:close' className='text-3xl text-center' />
       </Button>
     </div>
   )

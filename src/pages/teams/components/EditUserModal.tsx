@@ -13,7 +13,7 @@ import { EditUserModalValidationSchema } from '@hex-utils/validation-schemas'
 
 interface EditUserModalProps {
   isModalOpen: boolean
-  closeEditModal: () => void
+  backUrl: string
   // eslint-disable-next-line no-unused-vars
   getUser: (userId: string) => Promise<any>
   getTeams: () => Promise<any>
@@ -33,7 +33,7 @@ interface UserDetails {
 
 function EditUserModal({
   isModalOpen,
-  closeEditModal,
+  backUrl,
   getUser,
   getTeams,
   getRoles,
@@ -109,7 +109,7 @@ function EditUserModal({
 
   return (
     <Modal isModalOpen={isModalOpen}>
-      <ModalHeader onClose={closeEditModal} title='Edit user' />
+      <ModalHeader title='Edit user' backUrl={backUrl} />
       <ModalContent>
         <div className='flex flex-col h-full'>
           <div className='h-full'>

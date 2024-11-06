@@ -1,4 +1,7 @@
+'use client'
+
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect } from 'react'
 
 import { Button } from '@hex-ui/button'
@@ -6,14 +9,20 @@ import { Button } from '@hex-ui/button'
 interface ModalHeaderProps {
   title: string
   backButton?: ReactNode
-  onClose: () => void
+  backUrl?: string
 }
 
 export const ModalHeader = ({
-  onClose,
   title,
   backButton = null,
+  backUrl = '/',
 }: ModalHeaderProps) => {
+  const router = useRouter()
+
+  const onClose = () => {
+    router.push(backUrl)
+  }
+
   useEffect(() => {
     const handleKeydownEvent = (event: KeyboardEvent) => {
       if (event.key == 'Escape') {

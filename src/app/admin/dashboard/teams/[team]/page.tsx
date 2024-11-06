@@ -1,90 +1,44 @@
-'use client'
-
 import { Icon } from '@iconify/react/dist/iconify.js'
-import { getTeamMembers } from 'actions/teams/getTeamMembers'
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation'
-import { Suspense, useEffect, useState } from 'react'
 
-import { getRoles, getTeams, getUserById } from '@hex-actions'
+import { getRoles, getTeamMembers, getTeams, getUserById } from '@hex-actions'
 
 import EditUserModal from '@hex-pages/teams/components/EditUserModal'
+// import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import TeamMembersTable from '@hex-pages/teams/components/TeamMembersTable'
 import { Button } from '@hex-ui/button'
-import { delay } from '@hex-utils/delay'
 
-export interface TeamMember {
-  id: number
-  email: string
-  name: string
-  role: string
-  teamName: string
+interface TeamPageProps {
+  params: {
+    team: string
+  }
+  searchParams: {
+    edit?: string
+  }
 }
 
-const TeamPage = () => {
-  const params = useParams()
-  const query = useSearchParams()
-  const backUrl = usePathname()
-  const router = useRouter()
-
+const TeamPage = async ({ params: { team }, searchParams }: TeamPageProps) => {
   const columns = ['Name', 'Role', 'Actions']
+  const pathname = `/admin/dashboard/teams/${team}`
 
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(!!query?.get('edit'))
-
-  const fetchTeamMembers = async () => {
-    if (params?.team) {
-      await delay(3000)
-      const teamMembers = await getTeamMembers(params?.team as string)
-
-      setTeamMembers(teamMembers)
-    }
-
-    return []
-  }
-
-  const openEditModal = (userId: number) => {
-    router.push(`?edit=${userId}`)
-  }
-
-  const closeEditModal = () => {
-    router.push(backUrl || '/')
-  }
-
-  useEffect(() => {
-    fetchTeamMembers()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params])
-
-  useEffect(() => {
-    setIsModalOpen(!!query?.get('edit'))
-  }, [query])
+  const isModalOpen = !!searchParams.edit
 
   return (
     <div className='bg-hex-300 bg-opacity-30 rounded-lg h-full'>
-      {isModalOpen && (
-        <EditUserModal
-          isModalOpen={isModalOpen}
-          closeEditModal={closeEditModal}
-          getUser={getUserById}
-          getTeams={getTeams}
-          getRoles={getRoles}
-        />
-      )}
       <div className='h-full overflow-y-auto relative'>
-        <Suspense fallback={<h1>Loading users table</h1>}>
-          {teamMembers.length > 0 && (
-            <TeamMembersTable
-              columns={columns}
-              editAction={openEditModal}
-              teamMembers={teamMembers}
-            />
-          )}
-        </Suspense>
+        {isModalOpen && (
+          <EditUserModal
+            isModalOpen={isModalOpen}
+            getUser={getUserById}
+            getTeams={getTeams}
+            getRoles={getRoles}
+            backUrl={pathname}
+          />
+        )}
+        <TeamMembersTable
+          columns={columns}
+          fetchTeamMembers={getTeamMembers}
+          team={team}
+        />
         <div className='absolute p-4 m-4 bottom-0 right-0 aspect-square rounded-full flex items-center justify-center overflow-clip'>
           <Button
             variant='icon'
